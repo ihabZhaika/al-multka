@@ -11,14 +11,14 @@
 
   <ion-content *ngIf="temp ; else authenticated">
     <ion-list>
-      <button ion-item>تسجيل الدخول</button>
+      <button ion-item (click)="openPage('LoginPage')">تسجيل الدخول</button>
     </ion-list>
   </ion-content>
   <ng-template #authenticated>
   <ion-content>
     <ion-list>
       <!--<button ion-item>الاحصائيات</button>-->
-      <button ion-item *ngFor="let p of pages" (click)="openPage(p)">
+      <button ion-item *ngFor="let p of pages" (click)="openPage(p.component)">
         {{p.title}}
       </button>
     </ion-list>

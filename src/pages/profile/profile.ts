@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 
 /**
  * Generated class for the ProfilePage page.
@@ -12,6 +13,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-profile',
   templateUrl: 'profile.html',
 })
+@PageNameInjector("ProfilePage")
 export class ProfilePage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {

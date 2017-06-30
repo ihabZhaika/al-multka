@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 
 /**
  * Generated class for the GroupsPage page.
@@ -12,6 +13,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-groups',
   templateUrl: 'groups.html',
 })
+@PageNameInjector("GroupsPage")
 export class GroupsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {

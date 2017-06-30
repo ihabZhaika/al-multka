@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 
 /**
  * Generated class for the ContactUsPage page.
@@ -12,6 +13,7 @@ import { IonicPage, NavController, NavParams } from 'ionic-angular';
   selector: 'page-contact-us',
   templateUrl: 'contact-us.html',
 })
+@PageNameInjector("ContactUsPage")
 export class ContactUsPage {
 
   constructor(public navCtrl: NavController, public navParams: NavParams) {
