@@ -1,5 +1,11 @@
 {
   "name": "al-multka",
   "app_id": "9343962b",
-  "type": "ionic-angular"
+  "type": "ionic-angular",
+  "proxies": [
+    {
+      "path": "/api",
+      "proxyUrl": "https://api.plivo.com/v1/Account"
+    }
+  ]
 }

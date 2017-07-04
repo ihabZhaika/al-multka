@@ -1,7 +1,7 @@
 /**
  * Created by ihab on 6/30/17.
  */
-export enum Gender
+export enum CourseGender
 {
   غير_محدد,ذكور,اناث
 }

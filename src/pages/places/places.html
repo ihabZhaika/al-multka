@@ -8,11 +8,21 @@
 
   <ion-navbar>
     <ion-title>{{pageTitle}}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="addNewPlace()">أضافة</button>
+    </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 
 <ion-content padding>
+
+
+  <ion-list inset>
+    <button ion-item *ngFor="let place of (placeProvider.getPlaces() | async)" (click)="selectItem(place)">
+      {{place.name}}
+    </button>
+  </ion-list>
 
 </ion-content>

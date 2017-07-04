@@ -3,7 +3,9 @@ import { Nav, Platform ,MenuController} from 'ionic-angular';
 import { StatusBar } from '@ionic-native/status-bar';
 import { SplashScreen } from '@ionic-native/splash-screen';
 import {PagesNames} from "../config/pages-name";
-
+import {AuthProvider} from "../providers/auth/auth.provider";
+import {BackandService} from "@backand/angular2-sdk/src/backand.service";
+import {BACKEND_CONFIG} from "../config/backend.config";
 @Component({
   templateUrl: 'app.html'
 })
@@ -11,8 +13,7 @@ export class MyApp {
   rootPage:string = "TabsPage";
   pages: Array<{title: string, component: any}>;
   @ViewChild(Nav) nav: Nav;
-  temp=true;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menuCtrl: MenuController)
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menuCtrl: MenuController, private auth:AuthProvider,private backand:BackandService)
   {
     // used for an example of ngFor and navigation
     this.pages = [
@@ -39,6 +40,8 @@ export class MyApp {
       // Here you can do any higher level native things you might need.
       statusBar.styleDefault();
       splashScreen.hide();
+      //noinspection TypeScriptUnresolvedFunction
+      backand.init(BACKEND_CONFIG);
     });
   }
   openPage(page)
@@ -48,6 +51,14 @@ export class MyApp {
     this.nav.push(page);
     this.menuCtrl.close();
 
+  }
+  getList(): void {
+    let res = 'fetching objects...';
+    this.backand.object.getList('users').then((res: any) => {
+      console.log(res.data);
+
+      res = `${res.data.length} objects fetched`;
+    })
   }
 }
 

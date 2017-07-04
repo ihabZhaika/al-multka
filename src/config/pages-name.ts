@@ -19,5 +19,6 @@ export const PagesNames = {
   ContactUsPage:"تواصل معنا",
   AboutUsPage:"حول الملتقى",
   LogsPage:"السجلات",
-  LoginPage:"تسجيل الدخول"
+  LoginPage:"تسجيل الدخول",
+  PlaceViewPage:"تفاصيل المكان"
 };

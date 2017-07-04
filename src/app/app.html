@@ -6,10 +6,11 @@
   <ion-header>
   <ion-toolbar>
     <ion-title>القائمة الجانبية</ion-title>
+    {{auth.isAuthenticated() | async}}
+
   </ion-toolbar>
   </ion-header>
-
-  <ion-content *ngIf="temp ; else authenticated">
+  <ion-content *ngIf="!(auth.isAuthenticated() | async) ; else authenticated">
     <ion-list>
       <button ion-item (click)="openPage('LoginPage')">تسجيل الدخول</button>
     </ion-list>
