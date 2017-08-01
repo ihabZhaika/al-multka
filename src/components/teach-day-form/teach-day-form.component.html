@@ -1,0 +1,22 @@
+<ion-card [formGroup]="teachDayForm" >
+  <ion-card-header>
+    <ion-label stacked>اليوم</ion-label>
+    <ion-select [disabled]="!isEditable" style="position: relative" formControlName="day">
+      <ion-option *ngFor="let key of dayKeys" [value]="key" >{{days[key]}}</ion-option>
+    </ion-select>
+  </ion-card-header>
+  <ion-card-content>
+
+    <ion-row>
+      من
+      <ion-col>
+        <ion-datetime formControlName="from"  [disabled]="!isEditable" style="position: relative" displayFormat="HH:mm" pickerFormat="HH mm"  ></ion-datetime>
+      </ion-col>
+      الى
+      <ion-col>
+        <ion-datetime formControlName="to"  [disabled]="!isEditable" style="position: relative" displayFormat="HH:mm" pickerFormat="HH mm"  ></ion-datetime>
+
+      </ion-col>
+    </ion-row>
+  </ion-card-content>
+</ion-card>

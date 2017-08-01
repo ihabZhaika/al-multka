@@ -1,0 +1,39 @@
+
+<ion-card [formGroup]="contactPersonForm" >
+  <ion-card-header>
+
+    <ion-label stacked>
+      أسم جهة الاتصال
+    </ion-label>
+    <ion-input [readonly]="!isEditable"  formControlName="name"></ion-input>
+    <small text-wrap *ngIf="!contactPersonForm.controls.name.valid && contactPersonForm.controls.name.dirty">الرجاء ادخال اسم من حرف واحد على الاقل</small>
+
+
+  </ion-card-header>
+
+  <ion-card-content>
+
+    <ion-label stacked>
+      <button ion-button *ngIf="isEditable"(click)="addPhoneNumber()">+</button>
+      ارقام الاتصال
+    </ion-label>
+
+
+    <div formArrayName="phones">
+
+      <div *ngFor="let phone of contactPersonForm.controls.phones.controls; let j=index" >
+        <ion-row>
+          <ion-col col-9>
+            <ion-input [readonly]="!isEditable" [formControlName]="j"></ion-input>
+            <small text-wrap *ngIf="!phone.valid && phone.dirty" primary>الرجاء ادخال رقم مكون من 6 ارقام على الاقل</small>
+          </ion-col>
+          <ion-col col-1 col-2 *ngIf="isEditable">
+            <button *ngIf="contactPersonForm.controls.phones.controls.length > 1" color="danger" ion-button (click)="removePhone(j)">X</button>
+          </ion-col>
+        </ion-row>
+      </div>
+    </div>
+
+  </ion-card-content>
+
+</ion-card>

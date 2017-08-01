@@ -1,10 +1,12 @@
+import {Pupil} from "../pupil/pupil.interface";
+import {AttendanceStatus} from "./attendance-status.enum";
 /**
  * Created by ihab on 6/30/17.
  */
 export interface PupilAttendance
 {
-  pupilId:string;
-  attended:boolean;
+  pupil:Pupil;
+  attended:AttendanceStatus;
 
 
 }

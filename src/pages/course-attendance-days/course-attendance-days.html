@@ -1,0 +1,25 @@
+
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{pageTitle}}</ion-title>
+    <ion-buttons end>
+      <button ion-button (click)="addNewAttendanceDay()">أضافة</button>
+    </ion-buttons>
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <ion-list inset>
+    <ion-item *ngFor="let attendanceDay of course.attendances " (click)="selectItem(attendanceDay)" >
+
+      <div text-center>
+        {{attendanceDay.date | dateFormat}}
+      </div>
+      </ion-item>
+  </ion-list>
+
+</ion-content>

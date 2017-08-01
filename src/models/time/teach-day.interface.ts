@@ -6,6 +6,6 @@ import {Time} from "./time.interface";
 export interface TeachDay
 {
   day:Day;
-  from:Time;
-  to:Time;
+  from:string;
+  to:string;
 }

@@ -1,0 +1,53 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-title>{{pageTitle}}</ion-title>
+
+    <ion-buttons end>
+      <button *ngIf="!isEditable()" ion-button (click)="switchMode(viewMode.edit)">تعديل</button>
+
+      <div *ngIf="isEditable()">
+        <button ion-button [disabled]="!modelForm.valid" (click)="saveView()">حفظ</button>
+        <button ion-button (click)="cancel()">الغاء</button>
+      </div>
+
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+  <form [formGroup]="modelForm" novalidate>
+
+    <ion-label stacked >الأسم</ion-label>
+    <ion-input [disabled]="!isEditable()"  formControlName="name" ></ion-input>
+
+    <ion-label stacked >الترتيب</ion-label>
+    <ion-input type="number" min="0" [disabled]="!isEditable()"  formControlName="order" ></ion-input>
+
+
+    <ion-card>
+      <ion-card-header>
+        <ion-card-title>السور
+          <button float-left ion-button="" *ngIf="isEditable()" (click)="showSurasModal()">اختيار السور</button>
+
+        </ion-card-title>
+      </ion-card-header>
+
+      <ion-card-content>
+        <div formArrayName="suras">
+          <div *ngFor="let sura of model.suras;let i = index" >
+            <part-sura-item [formArray]="modelForm.controls.suras" [isEditable]="true"
+                            [model]="sura"></part-sura-item>
+            <hr>
+
+          </div>
+        </div>
+
+      </ion-card-content>
+    </ion-card>
+
+  </form>
+  {{modelForm.value|json}}
+</ion-content>

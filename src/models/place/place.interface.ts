@@ -4,6 +4,7 @@ import {ContactPerson} from "../contact-person/contact-person.interface";
  */
 export interface Place
 {
+  id?:string;
   name:string;
   contactPeople:ContactPerson[];
 }

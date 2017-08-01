@@ -1,0 +1,13 @@
+<ion-searchbar (ionInput)="filterItems($event)"></ion-searchbar>
+
+<ion-list inset>
+
+  <ion-item *ngFor="let sura of filteredItems">
+
+    <ion-label>{{sura.name}}</ion-label>
+    <ion-checkbox [ngModel]="isChecked(sura)" (ionChange)="toggle(sura)"></ion-checkbox>
+  </ion-item>
+
+</ion-list>
+
+{{selectedSuras|json}}

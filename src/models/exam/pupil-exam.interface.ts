@@ -5,7 +5,6 @@ import {PartExam} from "./part-exam.interface";
  */
 export interface PupilExam
 {
-  pupilId:string;
   suraExams:SuraExam[];
   partExams:PartExam[];
 }

@@ -1,0 +1,38 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-title>{{pageTitle}}</ion-title>
+
+    <ion-buttons end>
+      <button *ngIf="!isEditable()" ion-button (click)="switchMode(viewMode.edit)">تعديل</button>
+
+      <div *ngIf="isEditable()">
+        <button ion-button [disabled]="!modelForm.valid" (click)="saveView()">حفظ</button>
+        <button ion-button (click)="cancel()">الغاء</button>
+      </div>
+
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="modelForm" novalidate>
+
+    <ion-label stacked >الأسم</ion-label>
+    <ion-input [disabled]="!isEditable()"  formControlName="name" ></ion-input>
+
+    <ion-label stacked >عدد الايات</ion-label>
+    <ion-input type="number" min="0" [disabled]="!isEditable()" formControlName="versesCount" ></ion-input>
+
+    <ion-label stacked >الترتيب</ion-label>
+    <ion-input type="number" min="0" [disabled]="!isEditable()"  formControlName="order" ></ion-input>
+
+    <ion-label stacked >الوصف</ion-label>
+    <ion-textarea [disabled]="!isEditable()"  formControlName="description" ></ion-textarea>
+
+  </form>
+
+</ion-content>

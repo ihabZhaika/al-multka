@@ -1,0 +1,16 @@
+<div [formGroup]="suraItemForm">
+  <ion-row>
+    <ion-col>
+
+      <ion-label stacked>الأسم</ion-label>
+      <ion-input [readonly]="isEditable" formControlName="name"></ion-input>
+
+    </ion-col>
+
+    <ion-col>
+      <ion-label stacked>الترتيب</ion-label>
+      <ion-input [readonly]="isEditable" formControlName="order"></ion-input>
+    </ion-col>
+
+  </ion-row>
+</div>

@@ -11,34 +11,48 @@ import {UserProvider} from "../providers/user/user.provider";
 import {PlaceProvider} from "../providers/place/place.provider";
 import {BackandService} from "@backand/angular2-sdk/src/backand.service";
 import {AngularFireModule} from "angularfire2";
-import io from 'socket.io-client';
+import io from "socket.io-client";
 import {FIREBASE_CONFIG} from "../config/firebase.config";
-import { PupilComponent } from '../components/pupil/pupil';
+import {PupilProvider} from "../providers/pupil/pupil.provider";
+import {CourseProvider} from "../providers/course/course.provider";
+import {ComponentsModule} from "../components/components.module";
+import {SuraProvider} from "../providers/sura/sura.provider";
+import {PartProvider} from "../providers/part/part.provider";
+import {MultiItemSelectModalPage} from "../pages/multi-item-select-modal/multi-item-select-modal";
+import {MultiItemSelectModalPageModule} from "../pages/multi-item-select-modal/multi-item-select-modal.module";
 window["io"] = io;
 @NgModule({
-  declarations: [
-    MyApp,
-    PupilComponent,
-  ],
-  imports: [
-    BrowserModule,
-    IonicModule.forRoot(MyApp),
-    AngularFireModule.initializeApp(FIREBASE_CONFIG),
-    HttpModule
-],
-  bootstrap: [IonicApp],
-  entryComponents: [
-    MyApp
-  ],
-  providers: [
-    StatusBar,
-    SplashScreen,
-    {provide: ErrorHandler, useClass: IonicErrorHandler},
-    BackandService,
-    AuthProvider,
-    UserProvider,
-    AngularFireDatabase,
-    PlaceProvider,
-  ]
-})
+            declarations:
+              [
+              MyApp
+              ],
+            imports: [
+              BrowserModule,
+              IonicModule.forRoot(MyApp),
+              ComponentsModule,
+              AngularFireModule.initializeApp(FIREBASE_CONFIG),
+              HttpModule,
+              MultiItemSelectModalPageModule
+
+            ],
+            bootstrap: [IonicApp],
+            entryComponents:
+              [
+                MyApp,MultiItemSelectModalPage
+              ],
+            providers: [
+              StatusBar,
+              SplashScreen,
+              {provide: ErrorHandler, useClass: IonicErrorHandler},
+              BackandService,
+              AuthProvider,
+              UserProvider,
+              AngularFireDatabase,
+              PlaceProvider,
+              PupilProvider,
+              CourseProvider,
+              SuraProvider,
+              PartProvider
+            ]
+          })
 export class AppModule {}

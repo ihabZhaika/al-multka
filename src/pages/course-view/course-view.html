@@ -1,0 +1,111 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{pageTitle}}</ion-title>
+    <ion-buttons end>
+      <button *ngIf="!isEditable()" ion-button (click)="switchMode(viewMode.edit)">تعديل</button>
+
+      <div *ngIf="isEditable()">
+        <button ion-button [disabled]="!modelForm.valid" (click)="saveView()">حفظ</button>
+        <button ion-button (click)="cancel()">الغاء</button>
+      </div>
+
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+<ion-content padding>
+
+
+
+  {{modelForm.value | json}}
+  <form [formGroup]="modelForm" novalidate>
+    <ion-label stacked>أسم الدورة</ion-label>
+    <ion-input  [readonly]="!isEditable()" formControlName="title"  ></ion-input>
+
+    <div formGroupName="ageRange">
+      <ion-label stacked>العمر</ion-label>
+      <ion-row>
+        من
+        <ion-col>    <ion-input type="number" [readonly]="!isEditable()" formControlName="from"  ></ion-input></ion-col>
+
+        ألى
+        <ion-col>    <ion-input type="number" float-left [readonly]="!isEditable()" formControlName="to"  ></ion-input></ion-col>
+      </ion-row>
+    </div>
+
+    <ion-label>
+      <button *ngIf="isEditable()" ion-button (click)="addTeachDay()">+</button>
+أيام الدوام
+    </ion-label>
+    <div formArrayName="teachDays">
+
+      <div *ngFor="let teachDay of model.teachDays;let i = index" stacked>
+        <ion-card>
+
+          <ion-card-header>
+            يوم دوام {{i + 1}}
+            <button *ngIf="isEditable()" class="float-left" color="danger" ion-button (click)="removeTeachDay(i)">X</button>
+          </ion-card-header>
+
+          <ion-card-content>
+            {{teachDay |json}}
+            <teach-day-form   [model]="teachDay"  [formArray]="modelForm.controls.teachDays"  [isEditable]="isEditable()"></teach-day-form>
+          </ion-card-content>
+
+        </ion-card>
+      </div>
+
+    </div>
+      <!--<ion-label stacked>أيام الدوام</ion-label>-->
+      <!--<ion-card *ngFor="let teachDay of modelForm.controls.teachDays.controls;let i = indexstacked>أيام الدوامi" >-->
+      <!--<ion-card-header>-->
+      <!--<ion-label stacked>اليوم</ion-label>-->
+      <!--<ion-select [disabled]="!isEditable()" style="position: relative" formControlName="day">-->
+      <!--<ion-option *ngFor="let key of dayKeys" [value]="key" >{{days[key]}}</ion-option>-->
+      <!--</ion-select>-->
+      <!--</ion-card-header>-->
+      <!--<ion-card-content>-->
+
+      <!--<ion-row>-->
+      <!--من-->
+      <!--<ion-col>-->
+      <!--<ion-datetime formControlName="from"  [disabled]="!isEditable()" style="position: relative" displayFormat="HH:mm" pickerFormat="HH mm"  ></ion-datetime>-->
+      <!--</ion-col>-->
+      <!--الى-->
+      <!--<ion-col>-->
+      <!--<ion-datetime formControlName="to"  [disabled]="!isEditable()" style="position: relative" displayFormat="HH:mm" pickerFormat="HH mm"  ></ion-datetime>-->
+
+      <!--</ion-col>-->
+      <!--</ion-row>-->
+      <!--</ion-card-content>-->
+
+
+
+
+
+
+    <ion-label stacked>الجنس</ion-label>
+    <ion-select [disabled]="!isEditable()" style="position: relative" formControlName="gender">
+      <ion-option *ngFor="let key of genderKeys" [value]="key" >{{genders[key]}}</ion-option>
+    </ion-select>
+  </form>
+
+  <ion-grid>
+    <ion-row>
+      <ion-col>
+        <button ion-button block round  (click)="navigateToPage('CoursePupilsPage')">التلاميذ</button>
+      </ion-col>
+      <ion-col>
+        <button ion-button full round>المشرفين</button>
+      </ion-col>
+    </ion-row>
+
+    <button ion-button full round (click)="navigateToPage('CourseAttendanceDaysPage')">الحضور</button>
+
+
+  </ion-grid>
+
+</ion-content>

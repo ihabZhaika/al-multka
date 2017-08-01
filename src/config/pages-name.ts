@@ -20,5 +20,13 @@ export const PagesNames = {
   AboutUsPage:"حول الملتقى",
   LogsPage:"السجلات",
   LoginPage:"تسجيل الدخول",
-  PlaceViewPage:"تفاصيل المكان"
+  PlaceViewPage:"تفاصيل المكان",
+  PupilViewPage:"تفاصيل التلميذ",
+  CourseViewPage:"تفاصيل الدورة",
+  CourseAttendanceDaysPage:"سجل ايام الحضور",
+  CourseAttendanceDayView:"سجل حضور الطلاب ",
+  CoursePupilsPage:"تلاميذ الدورة",
+  SuraViewPage:"تفاصيل السورة",
+  PartViewPage:"تفاصيل الجزء",
+  MultiItemSelectModalPage:"عرض الخيارات"
 };

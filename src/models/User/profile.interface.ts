@@ -1,11 +1,13 @@
+import {Gender} from "../gender/gender.enum";
 /**
  * Created by ihab on 6/30/17.
  */
 export interface Profile
 {
+  id?:string;
   fullName:string;
   address:string;
-  birthData:Date;
-  gender:string;
+  birthData:string;
+  gender:Gender;
 
 }

@@ -1,0 +1,87 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{pageTitle}}</ion-title>
+    <ion-buttons end>
+      <button *ngIf="!isEditable()" ion-button (click)="switchMode(viewMode.edit)">تعديل</button>
+
+      <div *ngIf="isEditable()">
+        <button ion-button [disabled]="!modelForm.valid" (click)="saveView()">حفظ</button>
+        <button ion-button (click)="cancel()">الغاء</button>
+      </div>
+
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="modelForm" novalidate>
+
+    <ion-avatar>
+      <img src="../../assets/avatar.png">
+
+    </ion-avatar>
+
+
+    <ion-label stacked>أسم التلميذ</ion-label>
+    <ion-input  [readonly]="!isEditable()" formControlName="fullName"  ></ion-input>
+
+    <ion-label stacked>الجنس</ion-label>
+    <ion-select [disabled]="!isEditable()" style="position: relative" formControlName="gender">
+      <ion-option *ngFor="let key of genderKeys" [value]="key" >{{genders[key]}}</ion-option>
+    </ion-select>
+
+
+    <ion-label stacked>العنوان</ion-label>
+    <ion-textarea  [readonly]="!isEditable()" formControlName="address"  ></ion-textarea>
+
+
+    <ion-label stacked>تاريخ الميلاد</ion-label>
+      <ion-datetime  [disabled]="!isEditable()" style="position: relative" displayFormat="YYYY-M-D	" pickerFormat="YYYY-M-D" formControlName="birthData"  >تاريخ الميلاد</ion-datetime>
+
+
+    <ion-label stacked>ملاحظات خاصة</ion-label>
+    <ion-textarea  [readonly]="!isEditable()" formControlName="privateNotes"  ></ion-textarea>
+
+
+    <ion-label stacked>ملاحظات عامة</ion-label>
+    <ion-textarea  [readonly]="!isEditable()" formControlName="publicNotes"  ></ion-textarea>
+
+    <!--<select formControlName="gender">-->
+
+      <!--<option></option>-->
+      <!--<option *ngFor="let pupilGender of gender" >{{gender[pupilGender]}}</option>-->
+    <!--</select>-->
+
+
+    <ion-label>
+      <button *ngIf="isEditable()" ion-button (click)="addContactPerson()">+</button>
+      جهات الاتصال
+    </ion-label>
+
+    <div formArrayName="contactPeople">
+
+      <div *ngFor="let contactPerson of model?.contactPeople ; let i=index"   >
+        <ion-card>
+
+          <ion-card-header>
+            جهة اتصال {{i + 1}}
+            <button *ngIf="isEditable()" class="float-left" color="danger" ion-button (click)="removeContactPerson(i)">X</button>
+          </ion-card-header>
+
+          <ion-card-content>
+            {{contactPerson |json}}
+            <contact-person-form [model]="contactPerson"  [formArray]="modelForm.controls.contactPeople"  [isEditable]="isEditable()"></contact-person-form>
+          </ion-card-content>
+
+        </ion-card>
+      </div>
+    </div>
+
+  </form>
+  {{modelForm.value|json}}
+</ion-content>

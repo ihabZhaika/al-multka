@@ -1,0 +1,56 @@
+<ion-header>
+
+  <ion-navbar>
+    <ion-title>{{pageTitle}}</ion-title>
+    <ion-buttons end>
+      <button *ngIf="!isEditable()" ion-button (click)="switchMode(viewMode.edit)">تعديل</button>
+
+      <div *ngIf="isEditable()">
+        <button ion-button [disabled]="!modelForm.valid" (click)="saveView()">حفظ</button>
+        <button ion-button (click)="cancel()">الغاء</button>
+      </div>
+
+    </ion-buttons>
+
+  </ion-navbar>
+
+</ion-header>
+
+
+<ion-content padding>
+
+  <form [formGroup]="modelForm" novalidate>
+
+    <ion-label stacked>أسم المكان</ion-label>
+
+    <ion-input  [readonly]="!isEditable()" formControlName="name"  ></ion-input>
+
+
+    <ion-label>
+      <button *ngIf="isEditable()" ion-button (click)="addContactPerson()">+</button>
+      جهات الاتصال
+    </ion-label>
+
+    <div formArrayName="contactPeople">
+
+      <div *ngFor="let contactPerson of model.contactPeople ; let i=index"   >
+
+
+        <ion-card>
+          <ion-card-header>
+            جهة اتصال {{i + 1}}
+            <button *ngIf="isEditable()" class="float-left" color="danger" ion-button (click)="removeContactPerson(i)">X</button>
+
+          </ion-card-header>
+          <ion-card-content>
+            {{contactPerson |json}}
+            <contact-person-form [model]="contactPerson"  [formArray]="contactPeople"  [isEditable]="isEditable()"></contact-person-form>
+          </ion-card-content>
+        </ion-card>
+
+      </div>
+    </div>
+
+  </form>
+
+</ion-content>

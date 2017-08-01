@@ -30,7 +30,13 @@ export class PlacesPage {
 
   addNewPlace()
   {
-    this.navCtrl.push("PlaceViewPage",{mode:ViewMode.create});
+    this.navCtrl.push("PlaceViewPage",{model:this.initEmptyPlace(),mode:ViewMode.create});
   }
+  initEmptyPlace():Place
+  {
+    let place = {name:'',contactPeople:[]};
+    return place;
+  }
+
 
 }

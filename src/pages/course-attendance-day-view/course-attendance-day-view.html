@@ -1,0 +1,58 @@
+<ion-header>
+  <ion-navbar>
+
+    <ion-title>{{pageTitle}}</ion-title>
+
+    <ion-buttons end>
+      <button *ngIf="!isEditable()" ion-button (click)="switchMode(viewMode.edit)">تعديل</button>
+
+      <div *ngIf="isEditable()">
+        <button ion-button [disabled]="!modelForm.valid" (click)="saveView()">حفظ</button>
+        <button ion-button (click)="cancel()">الغاء</button>
+      </div>
+
+    </ion-buttons>
+
+  </ion-navbar>
+</ion-header>
+
+
+
+
+<ion-content padding>
+
+
+  <form [formGroup]="modelForm" novalidate>
+
+    <ion-label stacked>تاريخ الحضور</ion-label>
+    <ion-datetime formControlName="date"  [disabled]="!isEditable()" style="position: relative" displayFormat="YYYY-M-D" pickerFormat="YYYY-M-D"  ></ion-datetime>
+
+    <div formArrayName="pupilsAttendances">
+
+      <div *ngFor="let pupilAttendance of model.pupilsAttendances; let i = index" [formGroupName]="i">
+
+        <ion-row>
+          <ion-col  formGroupName="pupil">
+            <ion-label stacked >الأسم</ion-label>
+            <ion-input readonly formControlName="fullName" ></ion-input>
+          </ion-col>
+          <ion-col  >
+            <ion-label stacked >هل حضر ؟</ion-label>
+            <ion-select [disabled]="!isEditable()" style="position: relative" formControlName="attended">
+              <ion-option *ngFor="let key of attendanceStatusKeys" [value]="key" >{{attendanceStatus[key]}}</ion-option>
+            </ion-select>
+          </ion-col>
+        </ion-row>
+        <hr>
+
+
+
+      </div>
+
+    </div>
+
+
+  </form>
+  {{modelForm.value | json}}
+
+</ion-content>

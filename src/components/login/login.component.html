@@ -1,0 +1,13 @@
+
+<ion-card>
+
+  <ion-card-content text-center="">
+    <ion-item>
+      <ion-label stacked>رقم الهاتف</ion-label>
+      <ion-input type="text" id="sign-in-button"  [(ngModel)]="phoneNumber" placeholder="05xxxxxxxx"></ion-input>
+    </ion-item>
+    <button ion-button (click)="signIn()">تسجيل الدخول</button>
+  </ion-card-content>
+
+  <button (click)="saveUser()"></button>
+</ion-card>
