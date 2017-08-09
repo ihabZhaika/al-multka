@@ -5,51 +5,43 @@ import {PupilProvider} from "../../providers/pupil/pupil.provider";
 import {Pupil} from "../../models/pupil/pupil.interface";
 import {ViewMode} from "../../models/view-mode/view-mode.enum";
 import {Gender} from "../../models/gender/gender.enum";
+import {EditableListView} from "../../models/view-mode/editable-list-view";
 
-/**
- * Generated class for the PupilsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
-  selector: 'page-pupils',
-  templateUrl: 'pupils.html',
-})
+             selector: 'page-pupils',
+             templateUrl: 'pupils.html',
+           })
 @PageNameInjector("PupilsPage")
-export class PupilsPage {
-  genders=Gender;
+export class PupilsPage extends EditableListView<Pupil>
+{
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public pupilProvider:PupilProvider)
+  constructor(navCtrl: NavController, public navParams: NavParams,provider:PupilProvider)
   {
+    super(navCtrl,provider,"PupilViewPage");
+
   }
 
-  selectItem(pupil:Pupil)
-  {
-    // edit the
-    this.navCtrl.push("PupilViewPage",{model:pupil,mode:ViewMode.view});
-  }
 
-  addNewPupil()
-  {
-    this.navCtrl.push("PupilViewPage",{model:this.initEmptyPupil(),mode:ViewMode.create});
-  }
-
-  initEmptyPupil():Pupil
+  initEmptyModel():Pupil
   {
     let pupil:Pupil =
     {
       fullName:"",
       address:"",
       gender:Gender.غير_محدد,
-      birthData:new Date().toLocaleDateString(),
+      birthData:new Date().toISOString(),
       privateNotes:"",
       publicNotes:"",
-      contactPeople:[]
+      contactPeople:[],
+      courses:[]
     };
     return pupil;
   }
 
 
+
 }
+
+
+

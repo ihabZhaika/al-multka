@@ -2,10 +2,10 @@
 
 <ion-list inset>
 
-  <ion-item *ngFor="let sura of filteredItems">
+  <ion-item *ngFor="let item of filteredItems">
 
-    <ion-label>{{sura.name}}</ion-label>
-    <ion-checkbox [ngModel]="isChecked(sura)" (ionChange)="toggle(sura)"></ion-checkbox>
+    <ion-label>{{item[filterField]}}</ion-label>
+    <ion-checkbox [ngModel]="isChecked(item)" (ionChange)="toggle(item)"></ion-checkbox>
   </ion-item>
 
 </ion-list>

@@ -1,5 +1,6 @@
 import { Component } from '@angular/core';
 import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {MockDataProvider} from "../../providers/mock-data/mock-data.provider";
 
 /**
  * Generated class for the TabsPage page.
@@ -24,6 +25,7 @@ export class TabsPage {
     this.tab2Root = "CoursesPage";
     this.tab3Root = "AboutUsPage";
     this.tab4Root = "ContactUsPage";
+
   }
 
 

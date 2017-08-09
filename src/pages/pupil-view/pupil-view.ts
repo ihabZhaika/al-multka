@@ -1,54 +1,49 @@
-import {Component} from "@angular/core";
+import {Component , ChangeDetectorRef} from "@angular/core";
 import {IonicPage , NavController , NavParams} from "ionic-angular";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 import {SwitchableInputPage} from "../../models/view-mode/SwitchableView";
-import {FormBuilder , Validators} from "@angular/forms";
+import {FormBuilder , Validators , FormArray} from "@angular/forms";
 import {PupilProvider} from "../../providers/pupil/pupil.provider";
 import {Gender} from "../../models/gender/gender.enum";
+import {Pupil} from "../../models/pupil/pupil.interface";
+import {ValidatorUtils} from "../../utils/validators-utils";
 
 @IonicPage()
 @Component({
-  selector: 'page-pupil-view',
-  templateUrl: 'pupil-view.html',
-})
+             selector: 'page-pupil-view',
+             templateUrl: 'pupil-view.html',
+           })
 @PageNameInjector("PupilViewPage")
 
-export class PupilViewPage extends SwitchableInputPage
+export class PupilViewPage extends SwitchableInputPage<Pupil>
 {
+  selectedSegment:string = 'Details';
   genders=Gender;
   genderKeys:any;
-  constructor(navCtrl: NavController, public navParams: NavParams,protected _fb: FormBuilder,private pupilProvider:PupilProvider)
+  constructor(navCtrl: NavController, public navParams: NavParams,protected _fb: FormBuilder,private pupilProvider:PupilProvider,
+              private _changeDetectionRef : ChangeDetectorRef)
   {
-    super(navCtrl, navParams.get("model"));
+    super(navCtrl, navParams.get("model"),pupilProvider);
     this.initForm();
     this.fillFormWithData();
     this.switchMode(navParams.get('mode'));
+    this.copyKeys=['fullName','address','birthData','gender','privateNotes','publicNotes','contactPeople'];
 
-    // noinspection TypeScriptValidateTypes
-    this.genderKeys = Object.keys(this.genders).filter(Number);
-
-    try
-    {
-      // let pupil = navParams.get("model");
-      console.log(this.model);
-      // super.setFormAndModel(this.pupilForm,pupil);
-
-
-    }
-    catch (e)
-    { console.log("Error is ",e);}
   }
 
 
 
   public addContactPerson()
   {
-    this.model.contactPeople.push({name:'',phones:['']});
+    this.model.contactPeople.push({name:'',phones:[]});
+    this._changeDetectionRef.detectChanges();
   }
 
   removeContactPerson(i:number)
   {
+    const control = <FormArray>this.modelForm.controls['contactPeople'];
     this.model.contactPeople.splice(i,1);
+    control.removeAt(i);
   }
 
   initForm() : void
@@ -57,16 +52,12 @@ export class PupilViewPage extends SwitchableInputPage
                                       fullName : ['' , [<any>Validators.required , <any>Validators.minLength(1)]] ,
                                       address : ['' , [<any>Validators.required , <any>Validators.minLength(1)]] ,
                                       birthData : ['' , [<any>Validators.required , <any>Validators.minLength(1)]] ,
-                                      gender : ['' , [<any>Validators.required , <any>Validators.minLength(1)]] ,
-                                      privateNotes : ['' , [<any>Validators.required]] ,
-                                      publicNotes : ['' , [<any>Validators.required ]] ,
+                                      gender : ['' , [<any>Validators.required,<any>Validators.minLength(1)]] ,
+                                      privateNotes : ['' ,] ,
+                                      publicNotes : ['' ,] ,
                                       contactPeople : this._fb.array([])
                                     });
   }
 
-  saveView()
-  {
-    console.log(this.modelForm.value);
-  }
 
 }

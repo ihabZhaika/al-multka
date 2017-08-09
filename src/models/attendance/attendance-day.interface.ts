@@ -4,7 +4,7 @@ import {PupilAttendance} from "./pupil-attendance.interface";
  */
 export interface AttendanceDay
 {
-  id?:string;
+  _id?:string;
   date:string;
   pupilsAttendances:PupilAttendance[];
 }

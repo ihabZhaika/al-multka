@@ -1,24 +1,16 @@
 import {Injectable} from "@angular/core";
 import "rxjs/add/operator/map";
-import {Observable} from "rxjs";
-import {Part} from "../../models/part/part.interface";
-import {PARTS} from "../../mocks/part/parts.mock";
+import {BaseProvider} from "../base-provider";
+import {Http} from "@angular/http";
 
 @Injectable()
-export class PartProvider {
+export class PartProvider extends BaseProvider
+{
 
-  API_PATH="/suras/";
-  constructor()
+  constructor(http:Http)
   {
+    super(http,'parts');
   }
 
-  createPart(part:Part) : string
-  {
-    return "";
-  }
 
-  getParts():Observable<Part[]>
-  {
-    return Observable.of(PARTS);
-  }
 }

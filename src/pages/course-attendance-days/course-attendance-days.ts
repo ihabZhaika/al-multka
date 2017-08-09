@@ -26,12 +26,12 @@ export class CourseAttendanceDaysPage
 
   selectItem(attendanceDay:AttendanceDay)
   {
-    this.navCtrl.push("CourseAttendanceDayViewPage",{model:attendanceDay,mode:ViewMode.view,courseId:this.course.id});
+    this.navCtrl.push("CourseAttendanceDayViewPage",{model:attendanceDay,mode:ViewMode.view,course:this.course});
   }
 
   addNewAttendanceDay():void
   {
-    this.navCtrl.push("CourseAttendanceDayViewPage",{model:this.initEmptyAttendanceDay(),mode:ViewMode.create,courseId:this.course.id});
+    this.navCtrl.push("CourseAttendanceDayViewPage",{model:this.initEmptyAttendanceDay(),mode:ViewMode.create,course:this.course});
   }
   initEmptyAttendanceDay():AttendanceDay
   {

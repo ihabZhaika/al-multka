@@ -1,6 +1,7 @@
 import {Component , Input , OnInit} from '@angular/core';
 import {FormGroup , FormArray , FormControl , Validators , FormBuilder} from "@angular/forms";
 import {ContactPerson} from "../../models/contact-person/contact-person.interface";
+import {PhoneNumber} from "../../models/contact-person/phone-number.interface";
 
 @Component({
              selector: 'contact-person-form',
@@ -21,15 +22,29 @@ export class ContactPersonFormComponent implements OnInit
   }
   constructor(private _fb: FormBuilder)
   {
+    console.log("Added contact");
   }
 
   public removePhone(j:number)
   {
     (this.contactPersonForm.get("phones") as FormArray).removeAt(j);
   }
-  public initFormPhone(phone?:string):FormControl
+  public initFormPhone(phoneNumber?:PhoneNumber):FormGroup
   {
-    return new FormControl(phone || '',[Validators.minLength(6), <any>Validators.required]);
+    let prefix = "+972";
+    let number = "";
+    if(phoneNumber)
+    {
+      prefix = phoneNumber.prefix;
+      number = phoneNumber.number
+    }
+    return new FormGroup(
+      {
+        prefix:new FormControl(prefix, [ <any>Validators.required]),
+        number:new FormControl(number, [<any>Validators.required])
+      }
+    );
+    // return new FormControl(phone || '',[Validators.minLength(6), <any>Validators.required]);
   }
 
   public addPhoneNumber()

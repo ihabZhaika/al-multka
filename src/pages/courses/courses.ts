@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from "@angular/core";
+import {IonicPage , NavController , NavParams} from "ionic-angular";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 import {CourseProvider} from "../../providers/course/course.provider";
 import {Course} from "../../models/course/course.interface";
 import {ViewMode} from "../../models/view-mode/view-mode.enum";
 import {CourseGender} from "../../models/gender/course.gender.enum";
-import {DateFormatPipe} from "../../pipes/date-format/date-format.pipe";
 import {Day} from "../../models/time/day.enum";
+import {COURSES} from "../../mocks/course/courses.mock";
+import {PupilsPage} from "../pupils/pupils";
+import {EditableListView} from "../../models/view-mode/editable-list-view";
 
 @IonicPage()
 @Component({
@@ -14,32 +16,16 @@ import {Day} from "../../models/time/day.enum";
              templateUrl: 'courses.html',
            })
 @PageNameInjector("CoursesPage")
-export class CoursesPage {
-  genders=CourseGender;
-  days = Day;
-  constructor(private navCtrl: NavController, private navParams: NavParams,public courseProvider:CourseProvider)
+export class CoursesPage extends EditableListView<Course>
+{
+
+  constructor(navCtrl: NavController, private navParams: NavParams,public provider:CourseProvider)
   {
-    courseProvider.getCourses().subscribe(
-      res=>
-      {
-        console.log(res);
-      },
-      err=>
-      {
-        console.error(err);
-      }
-    );
-  }
-  selectItem(course:Course)
-  {
-    this.navCtrl.push("CourseViewPage",{model:course,mode:ViewMode.view});
+    super(navCtrl,provider,"CourseViewPage");
+
   }
 
-  addNewCourse()
-  {
-    this.navCtrl.push("CourseViewPage",{model:this.initEmptyCourse(),mode:ViewMode.create});
-  }
-  initEmptyCourse():Course
+  initEmptyModel():Course
   {
     let course =
     {
@@ -54,7 +40,7 @@ export class CoursesPage {
       supervisorsPermissions:[],
       attendances:[],
       parts:[],
-      pupilsExams:{},
+      pupilsExams:[],
     };
     return course;
   }

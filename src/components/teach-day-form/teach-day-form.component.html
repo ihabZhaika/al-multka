@@ -2,7 +2,7 @@
   <ion-card-header>
     <ion-label stacked>اليوم</ion-label>
     <ion-select [disabled]="!isEditable" style="position: relative" formControlName="day">
-      <ion-option *ngFor="let key of dayKeys" [value]="key" >{{days[key]}}</ion-option>
+      <ion-option *ngFor="let key of dayKeys" [value]="days[key]" >{{days[key]}}</ion-option>
     </ion-select>
   </ion-card-header>
   <ion-card-content>

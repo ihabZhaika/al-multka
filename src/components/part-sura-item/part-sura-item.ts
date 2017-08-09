@@ -1,4 +1,4 @@
-import {Component , Input} from '@angular/core';
+import {Component , Input , OnInit} from '@angular/core';
 import {FormGroup , FormArray , FormBuilder , Validators} from "@angular/forms";
 import {Sura} from "../../models/sura/sura.interface";
 
@@ -6,7 +6,7 @@ import {Sura} from "../../models/sura/sura.interface";
   selector: 'part-sura-item',
   templateUrl: 'part-sura-item.html'
 })
-export class PartSuraItemComponent
+export class PartSuraItemComponent implements OnInit
 {
   public suraItemForm:FormGroup;
   @Input() public  formArray:FormArray;
@@ -27,7 +27,7 @@ export class PartSuraItemComponent
     let group = this._fb.group
     (
       {
-        id:[sura.id],
+        id:[sura._id],
         name : [sura.name,[<any>Validators.required , <any>Validators.minLength(1)]],
         versesCount : [sura.versesCount,[<any>Validators.required , <any>Validators.minLength(1)]],
         order : [sura.order,[<any>Validators.required , <any>Validators.minLength(1)]],

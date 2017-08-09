@@ -1,10 +1,19 @@
-
 <ion-header>
 
   <ion-navbar>
     <ion-title>{{pageTitle}}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="addNewPlace()">أضافة</button>
+      <div *ngIf="!isEditing; else elseBlock">
+        <button ion-button (click)="addNewModel()">أضافة</button>
+        <button ion-button (click)="isEditing=true">تعديل</button>
+
+      </div>
+      <ng-template #elseBlock>
+        <button ion-button [disabled]="selectedItems.length == 0" (click)="deleteItems()">حذف</button>
+        <button ion-button (click)="isEditing=false">الغاء</button>
+      </ng-template>
+
+
     </ion-buttons>
   </ion-navbar>
 
@@ -13,11 +22,17 @@
 
 <ion-content padding>
 
+  <items-list [filterField]="'fullName'" [allItems]="items"  [isSelectable]="isEditing" (onClick)="selectItem($event)"
+              (selectedItemsChange)="selectedItems=$event">
+    <ng-template let-item>
+      <ion-row >
+        <ion-col>
+          {{item.name}}
+        </ion-col>
+      </ion-row>
+    </ng-template>
 
-  <ion-list inset>
-    <button ion-item *ngFor="let place of (placeProvider.getPlaces() | async)" (click)="selectItem(place)">
-      {{place.name}}
-    </button>
-  </ion-list>
+  </items-list>
+
 
 </ion-content>

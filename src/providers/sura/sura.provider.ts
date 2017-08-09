@@ -1,25 +1,15 @@
 import {Injectable} from "@angular/core";
 import "rxjs/add/operator/map";
-import {Sura} from "../../models/sura/sura.interface";
-import {Observable} from "rxjs";
-import {SURAS} from "../../mocks/sura/suras.mock";
+import {Http} from "@angular/http";
+import {BaseProvider} from "../base-provider";
 
 @Injectable()
-export class SuraProvider {
+export class SuraProvider extends BaseProvider
+{
 
-  API_PATH="/suras/";
-  constructor()
+  constructor(http:Http)
   {
+    super(http,'suras');
   }
 
-  createSura(sura:Sura) : string
-  {
-    return "";
-  }
-
-
-  getSuras():Observable<Sura[]>
-  {
-    return Observable.of(SURAS);
-  }
 }

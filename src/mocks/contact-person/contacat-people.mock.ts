@@ -6,23 +6,23 @@ const contactPeople:ContactPerson[]=
   [
     {
       name:"ايهاب زحايكة",
-      phones:["0532809974","05328099XX"]
+      phones:[{prefix:"+972",number:"0532809974"},{prefix:"+971",number:"05328099XX"}]
     },
     {
       name:"عمر جعابيص",
-      phones:["0528879901"]
+      phones:[{prefix:"+972",number:"0528879901"}]
     },
     {
       name:"محمد قلان",
-      phones:["0588888888"]
+      phones:[{prefix:"+972",number:"0588888888"}]
     },
     {
       name:"علي هلسة",
-      phones:["0533333333"]
+      phones:[{prefix:"+972",number:"0533333333"}]
     },
     {
       name:"فلان ابن فلان ابن فلان",
-      phones:["0532809974","05328099XX","0588888888"]
+      phones:[{prefix:"+972",number:"0532809974"},{prefix:"+972",number:"05328099XX"},{prefix:"+972",number:"0588888888"}]
     },
   ];
 

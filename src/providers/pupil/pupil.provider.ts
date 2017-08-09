@@ -1,26 +1,16 @@
-import { Injectable } from '@angular/core';
-import { Http } from '@angular/http';
-import 'rxjs/add/operator/map';
-import {Observable} from "rxjs";
+import {Injectable} from "@angular/core";
+import {Http} from "@angular/http";
+import "rxjs/add/operator/map";
 import {Pupil} from "../../models/pupil/pupil.interface";
-import {PUPILS} from "../../mocks/pupil/pupils.mock";
-
-/*
-  Generated class for the PupilProvider provider.
-
-  See https://angular.io/docs/ts/latest/guide/dependency-injection.html
-  for more info on providers and Angular DI.
-*/
+import {BaseProvider} from "../base-provider";
 @Injectable()
-export class PupilProvider {
+export class PupilProvider extends BaseProvider
+{
 
-  constructor(public http: Http) {
-    console.log('Hello PupilProvider Provider');
-  }
-
-
-  getPupils():Observable<Pupil[]>
+  constructor(public http: Http)
   {
-    return Observable.of(PUPILS);
+    super(http,'pupils');
   }
+
+
 }

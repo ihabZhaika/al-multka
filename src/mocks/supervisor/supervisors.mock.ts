@@ -1,20 +1,19 @@
-import {CONTACT_PEOPLE} from "../contact-person/contacat-people.mock";
 import {Gender} from "../../models/gender/gender.enum";
-import {DateFormatPipe} from "../../pipes/date-format/date-format.pipe";
 import {Supervisor} from "../../models/User/supervisor.interface";
 import {Role} from "../../models/role/role.enum";
 import {Permission} from "../../models/permission/permission.interface";
+import {ObjectId} from "../../utils/id-generator";
 /**
  * Created by ihab on 7/2/17.
  */
 
-let pupilsPermission:Permission = {name:"pupils",create:true,read:true,update:true,delete:false};
-let coursesPermission:Permission = {name:"courses",create:false,read:true,update:true,delete:false};
+let pupilsPermission:Permission = {name:"pupils",create:true,read:true,update:true,erase:false};
+let coursesPermission:Permission = {name:"courses",create:false,read:true,update:true,erase:false};
 
 const supervisors:Supervisor[]=
   [
     {
-      id:"1",
+      _id:ObjectId(),
       fullName:"ايهاب زحايكة",
       address:"القدس , جبل المكبر",
       gender:Gender.ذكر,
@@ -25,10 +24,10 @@ const supervisors:Supervisor[]=
       qualifications:"first degree in A,B,C",
       phoneNumbers:[],
       currentTask:"teaching kids",
-      coursesIds:[]
+      courses:[]
     },
     {
-      id:"2",
+      _id:ObjectId(),
       fullName:"عمر جعابيص",
       address:"القدس , جبل المكبر",
       gender:Gender.ذكر,
@@ -39,10 +38,10 @@ const supervisors:Supervisor[]=
       qualifications:"لقب اول في الشريعة",
       phoneNumbers:["+972532889564"],
       currentTask:"teaching kids",
-      coursesIds:[]
+      courses:[]
     },
     {
-      id:"3",
+      _id:ObjectId(),
       fullName:"فلان الفلاني",
       address:"القدس ,صورباهر",
       gender:Gender.ذكر,
@@ -53,7 +52,7 @@ const supervisors:Supervisor[]=
       qualifications:"first degree in A,B,C",
       phoneNumbers:[],
       currentTask:"teaching kids",
-      coursesIds:[]
+      courses:[]
     }
 
   ];

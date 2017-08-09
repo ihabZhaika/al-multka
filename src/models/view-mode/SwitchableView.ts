@@ -1,27 +1,29 @@
 import {ViewMode} from "./view-mode.enum";
 import {NavController} from "ionic-angular";
 import {FormGroup} from "@angular/forms";
+import {Observable} from "rxjs";
+import {BaseProvider} from "../../providers/base-provider";
 /**
  * Created by ihab on 7/3/17.
  */
-export abstract class SwitchableInputPage
+export abstract class SwitchableInputPage<T>
 {
   /**
    * Used in the html to be able to access the enum
    * @type {ViewMode}
    */
   public viewMode = ViewMode;
-  private currentViewMode:ViewMode;
+  protected currentViewMode:ViewMode;
   public modelForm:FormGroup;
-  public model:any;
+  public model:T;
   private modelCopy:any;
-  constructor(protected navCtrl: NavController,model:any )
+  protected copyKeys=[];
+  constructor(protected navCtrl: NavController,model:any,public provider:BaseProvider )
   {
-    this.model = model
+    this.model = model;
   }
 
   abstract initForm():void
-  abstract saveView();
 
   saveModelCopy()
   {
@@ -72,7 +74,64 @@ export abstract class SwitchableInputPage
     return false;
   }
 
+  saveView()
+  {
+    let observable$:Observable<any>= this.update();
+    if(this.currentViewMode == ViewMode.create)
+      observable$ = this.insert();
 
+    observable$.subscribe(value=>
+                          {
+                            console.log("Value assigned");
+                            this.switchMode(ViewMode.view);
+                            this.model = value;
+                            this.initForm();
+                            this.fillFormWithData();
+                          }, err=>
+                          {
+                            console.error(err);
+                          });
+  }
 
+  /**
+   * Updates the data model with the form data
+   */
+  private updateModel()
+  {
+    let formValue = this.modelForm.getRawValue();
+    for(let key of this.copyKeys)
+    {
+      this.model[key] = formValue[key];
+    }
+  }
+
+  insert():Observable<any>
+  {
+    this.updateModel();
+    console.log("insert");
+
+    return this.provider.insert(this.model).flatMap(
+      (value:T)=>
+      {
+        console.log("The saved object is");
+        console.log(value);
+        return Observable.of(value);
+      }
+    );
+  }
+  update():Observable<any>
+  {
+    this.updateModel();
+    console.log("update");
+
+    return this.provider.updateById(this.model['_id'],this.model).flatMap(
+      (value:T)=>
+      {
+        console.log("The updated object is");
+        console.log(value);
+        return Observable.of(value);
+      }
+    );
+  }
 
 }

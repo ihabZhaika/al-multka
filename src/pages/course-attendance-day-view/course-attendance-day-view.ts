@@ -1,12 +1,14 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from "@angular/core";
+import {IonicPage , NavController , NavParams , ModalController , Modal} from "ionic-angular";
 import {SwitchableInputPage} from "../../models/view-mode/SwitchableView";
 import {FormBuilder , Validators , FormArray} from "@angular/forms";
 import {CourseProvider} from "../../providers/course/course.provider";
 import {PupilAttendance} from "../../models/attendance/pupil-attendance.interface";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
-import {AttendanceDay} from "../../models/attendance/attendance-day.interface";
 import {AttendanceStatus} from "../../models/attendance/attendance-status.enum";
+import {Course} from "../../models/course/course.interface";
+import {MultiItemSelectModalPage} from "../multi-item-select-modal/multi-item-select-modal";
+import {AttendanceDay} from "../../models/attendance/attendance-day.interface";
 
 @IonicPage()
 @Component({
@@ -15,20 +17,19 @@ import {AttendanceStatus} from "../../models/attendance/attendance-status.enum";
            })
 @PageNameInjector("CourseAttendanceDayViewPage")
 
-export class CourseAttendanceDayViewPage extends SwitchableInputPage
+export class CourseAttendanceDayViewPage extends SwitchableInputPage<AttendanceDay>
 {
-  attendanceStatus=AttendanceStatus;
-  attendanceStatusKeys:any[];
-  courseId:string;
-  constructor(public navCtrl: NavController, navParams: NavParams, private _fb: FormBuilder,courseProvider:CourseProvider)
+
+  course:Course;
+  constructor(public navCtrl: NavController, navParams: NavParams, private _fb: FormBuilder,courseProvider:CourseProvider
+    ,  public modalCtrl: ModalController)
   {
-    super(navCtrl, navParams.get("model"));
-    this.courseId = navParams.get('courseId');
+    super(navCtrl, navParams.get("model"),courseProvider);
+    this.course = navParams.get('course');
     this.initForm();
     this.fillFormWithData();
     this.switchMode(navParams.get('mode'));
-    //noinspection TypeScriptValidateTypes
-    this.attendanceStatusKeys = Object.keys(this.attendanceStatus).filter(Number);
+
 
   }
 
@@ -38,7 +39,7 @@ export class CourseAttendanceDayViewPage extends SwitchableInputPage
     this.modelForm = this._fb.group(
       {
         date:[new Date().toISOString(),[<any>Validators.required ]],
-        pupilsAttendances:this.initPupilAttendance()
+        pupilsAttendances:this._fb.array([])
 
       }
     );
@@ -48,19 +49,51 @@ export class CourseAttendanceDayViewPage extends SwitchableInputPage
   {
     let formArray = this._fb.array([]);
     this.model.pupilsAttendances.forEach((value:PupilAttendance)=>
-                                  {
-                                    formArray.push(this._fb.group({
-                                                                    pupil:this._fb.group(
-                                                                      {
-                                                                        id:[value.pupil.id],
-                                                                        fullName:[value.pupil.fullName]
-                                                                      }),
-                                                                    attended:[value.attended]
+                                         {
+                                           formArray.push(this._fb.group({
+                                                                           pupil:this._fb.group(
+                                                                             {
+                                                                               id:[value.pupil._id],
+                                                                               fullName:[value.pupil.fullName]
+                                                                             }),
+                                                                           attended:[value.attended]
 
-                                                                  }));
-                                  });
+                                                                         }));
+                                         });
 
     return formArray;
+  }
+
+
+
+  showPupilsModal()
+  {
+
+    /**
+     * this.model.pupilsAttendances.forEach((value:PupilAttendance)=>
+     {
+       return value.pupil
+     });
+     * @type {{}}
+     */
+        let params = {};
+        params[MultiItemSelectModalPage.FILTER_FILED_KEY]="fullName";
+        params[MultiItemSelectModalPage.SELECTED_ITEMS_KEY]= this.model.pupilsAttendances;
+        params[MultiItemSelectModalPage.ALL_ITEMS_KEY]=this.course.pupils;
+        let modal:Modal = this.modalCtrl.create(MultiItemSelectModalPage,params);
+        // Getting data from the modal:
+        modal.onDidDismiss(data =>
+                           {
+                             console.log('MODAL DATA', data[MultiItemSelectModalPage.SELECTED_ITEMS_KEY]);
+                             let newItems = data[MultiItemSelectModalPage.SELECTED_ITEMS_KEY];
+
+                             this.model.pupilsAttendances = newItems;
+                           });
+
+        modal.present();
+
+
+
   }
   saveView()
   {

@@ -1,32 +1,24 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from "@angular/core";
+import {IonicPage , NavController , NavParams} from "ionic-angular";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 import {Part} from "../../models/part/part.interface";
-import {ViewMode} from "../../models/view-mode/view-mode.enum";
 import {PartProvider} from "../../providers/part/part.provider";
-
+import {EditableListView} from "../../models/view-mode/editable-list-view";
 
 @IonicPage()
 @Component({
-  selector: 'page-parts',
-  templateUrl: 'parts.html',
-})
+             selector: 'page-parts',
+             templateUrl: 'parts.html',
+           })
 @PageNameInjector("PartsPage")
-export class PartsPage
+export class PartsPage extends EditableListView<Part>
 {
-  constructor(public navCtrl: NavController, public navParams: NavParams, public partProvider:PartProvider)
+  constructor(navCtrl: NavController, public navParams: NavParams, public provider:PartProvider)
   {
-  }
-  selectItem(part:Part)
-  {
-    this.navCtrl.push("PartViewPage",{model:part,mode:ViewMode.view});
+    super(navCtrl,provider,"PartViewPage");
   }
 
-  addNewPart()
-  {
-    this.navCtrl.push("PartViewPage",{model:this.initEmptyPart(),mode:ViewMode.create});
-  }
-  initEmptyPart():Part
+  initEmptyModel():Part
   {
     let part =
       {

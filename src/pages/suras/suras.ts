@@ -1,10 +1,9 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from "@angular/core";
+import {IonicPage , NavController , NavParams} from "ionic-angular";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 import {SuraProvider} from "../../providers/sura/sura.provider";
 import {Sura} from "../../models/sura/sura.interface";
-import {ViewMode} from "../../models/view-mode/view-mode.enum";
-
+import {EditableListView} from "../../models/view-mode/editable-list-view";
 
 @IonicPage()
 @Component({
@@ -12,22 +11,15 @@ import {ViewMode} from "../../models/view-mode/view-mode.enum";
              templateUrl: 'suras.html',
            })
 @PageNameInjector("SurasPage")
-export class SurasPage {
+export class SurasPage extends EditableListView<Sura>
+{
 
-  constructor(public navCtrl: NavController, public navParams: NavParams,public suraProvider:SuraProvider)
+  constructor(navCtrl: NavController, public navParams: NavParams,public provider:SuraProvider)
   {
+    super(navCtrl,provider,"SuraViewPage");
   }
 
-  selectItem(sura:Sura)
-  {
-    this.navCtrl.push("SuraViewPage",{model:sura,mode:ViewMode.view});
-  }
-
-  addNewSura()
-  {
-    this.navCtrl.push("SuraViewPage",{model:this.initEmptySura(),mode:ViewMode.create});
-  }
-  initEmptySura():Sura
+  initEmptyModel():Sura
   {
     let sura =
       {

@@ -41,7 +41,10 @@ export class MultiItemSelectionComponent implements OnInit
 
   isChecked(sura:Sura)
   {
-    return this.selectedItems.indexOf(sura) >= 0
+    return this.selectedItems.findIndex((value)=>
+                                        {
+                                          return sura._id == value['_id'];
+                                        }) >=0;
   }
   toggle(item:any)
   {

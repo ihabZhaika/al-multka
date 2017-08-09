@@ -89,7 +89,7 @@
 
     <ion-label stacked>الجنس</ion-label>
     <ion-select [disabled]="!isEditable()" style="position: relative" formControlName="gender">
-      <ion-option *ngFor="let key of genderKeys" [value]="key" >{{genders[key]}}</ion-option>
+      <ion-option *ngFor="let key of genderKeys" [value]="genders[key]" >{{genders[key]}}</ion-option>
     </ion-select>
   </form>
 

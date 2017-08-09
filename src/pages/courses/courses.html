@@ -2,39 +2,96 @@
 <ion-header>
 
   <ion-navbar>
+    <button ion-button menuToggle>
+      <ion-icon name="menu"></ion-icon>
+    </button>
     <ion-title>{{pageTitle}}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="addNewSura()">أضافة</button>
+      <div *ngIf="!isEditing; else elseBlock">
+        <button ion-button (click)="addNewModel()">أضافة</button>
+        <button ion-button (click)="isEditing=true">تعديل</button>
+
+      </div>
+      <ng-template #elseBlock>
+        <button ion-button [disabled]="selectedItems.length == 0" (click)="deleteItems()">حذف</button>
+        <button ion-button (click)="isEditing=false">الغاء</button>
+      </ng-template>
+
+
     </ion-buttons>
   </ion-navbar>
 
 </ion-header>
 
 <ion-content padding>
+  <items-list [filterField]="'title'" [allItems]="items"  [isSelectable]="isEditing" (onClick)="selectItem($event)"
+              (selectedItemsChange)="selectedItems=$event">
+    <ng-template let-item>
+      <ion-row>
+
+        <ion-col>
+          {{item.title}}
+        </ion-col>
+
+        <ion-col>
+          ايام الدوام :
+          <div *ngFor="let teachDay of item.teachDays">
+            <p>{{teachDay.day}}</p>
+            <p>
+              من :
+              {{teachDay.from | timeFormat}}
+
+              الى :
+              {{teachDay.to | timeFormat}}
+            </p>
+          </div>
+        </ion-col>
+
+        <ion-col>
+          <ion-label>
+            الجنس
+            :
+            {{item.gender}}
+          </ion-label>
+          <p></p>
+          <ion-label>
+            العمر
+            :
+            {{item.ageRange.from}} ~ {{item.ageRange.to}}
+
+          </ion-label>
+          <p></p>
+        </ion-col>
+      </ion-row>
 
 
-  <ion-list inset>
-    <ion-item *ngFor="let course of (courseProvider.getCourses() | async)" (click)="selectItem(course)">
-    <!--{{course|json}}-->
-    <span item-left>
-      <h2>{{course.title}}</h2>
-    </span>
 
-    <span item-center>
-        <div *ngFor="let teachDay of course.teachDays">
-          <p>{{days[teachDay.day]}}</p>
-          <p>{{teachDay.from | timeFormat}} ~ {{teachDay.to | timeFormat}}</p>
-        </div>
-    </span>
+    </ng-template>
 
-      <span 	item-right>
-        <p>{{genders[course.gender]}}</p>
-        <p>{{course.ageRange.from}} ~ {{course.ageRange.to}}</p>
-      </span>
+  </items-list>
+  <!--&lt;!&ndash;<demo></demo>&ndash;&gt;-->
+  <!--<ion-list inset>-->
+  <!--<ion-item *ngFor="let course of (dataArray$| async)" (click)="selectItem(course)">-->
+  <!--&lt;!&ndash;{{course|json}}&ndash;&gt;-->
+  <!--<span item-left>-->
+  <!--<h2>{{course.title}}</h2>-->
+  <!--</span>-->
+
+  <!--<span item-center>-->
+  <!--<div *ngFor="let teachDay of course.teachDays">-->
+  <!--<p>{{days[teachDay.day]}}</p>-->
+  <!--<p>{{teachDay.from | timeFormat}} ~ {{teachDay.to | timeFormat}}</p>-->
+  <!--</div>-->
+  <!--</span>-->
+
+  <!--<span 	item-right>-->
+  <!--<p>{{genders[course.gender]}}</p>-->
+  <!--<p>{{course.ageRange.from}} ~ {{course.ageRange.to}}</p>-->
+  <!--</span>-->
 
 
-      </ion-item>
+  <!--</ion-item>-->
 
-  </ion-list>
+  <!--</ion-list>-->
 
 </ion-content>

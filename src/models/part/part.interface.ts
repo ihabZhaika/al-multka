@@ -4,7 +4,7 @@ import {Sura} from "../sura/sura.interface";
  */
 export interface Part
 {
-  id?:string;
+  _id?:string;
   name:string;
   order:number;
   suras:Sura[];

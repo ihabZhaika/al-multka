@@ -12,7 +12,6 @@ import {PlaceProvider} from "../providers/place/place.provider";
 import {BackandService} from "@backand/angular2-sdk/src/backand.service";
 import {AngularFireModule} from "angularfire2";
 import io from "socket.io-client";
-import {FIREBASE_CONFIG} from "../config/firebase.config";
 import {PupilProvider} from "../providers/pupil/pupil.provider";
 import {CourseProvider} from "../providers/course/course.provider";
 import {ComponentsModule} from "../components/components.module";
@@ -20,6 +19,8 @@ import {SuraProvider} from "../providers/sura/sura.provider";
 import {PartProvider} from "../providers/part/part.provider";
 import {MultiItemSelectModalPage} from "../pages/multi-item-select-modal/multi-item-select-modal";
 import {MultiItemSelectModalPageModule} from "../pages/multi-item-select-modal/multi-item-select-modal.module";
+import {MockDataProvider} from "../providers/mock-data/mock-data.provider";
+import { ItemsListComponent } from '../components/items-list/items-list';
 window["io"] = io;
 @NgModule({
             declarations:
@@ -28,9 +29,12 @@ window["io"] = io;
               ],
             imports: [
               BrowserModule,
-              IonicModule.forRoot(MyApp),
+              IonicModule.forRoot(MyApp,
+                                  {
+                                    dayNames: ['A', 'B', 'C', 'D', 'E', 'F', 'G'],
+
+                                  }),
               ComponentsModule,
-              AngularFireModule.initializeApp(FIREBASE_CONFIG),
               HttpModule,
               MultiItemSelectModalPageModule
 
@@ -52,7 +56,8 @@ window["io"] = io;
               PupilProvider,
               CourseProvider,
               SuraProvider,
-              PartProvider
+              PartProvider,
+              MockDataProvider
             ]
           })
 export class AppModule {}

@@ -5,23 +5,17 @@ import {Observable} from "rxjs";
 import {Place} from "../../models/place/place.interface";
 import {PLACES} from "../../mocks/place/places.mock";
 import {BackandService} from "@backand/angular2-sdk/src/backand.service";
+import {BaseProvider} from "../base-provider";
 
 @Injectable()
-export class PlaceProvider {
+export class PlaceProvider extends BaseProvider
+{
 
-  MODEL="place";
-  constructor(public http: Http,private backand:BackandService)
+  constructor(public http: Http)
   {
-    console.log('Hello PlaceProvider Provider');
+    super(http,'places');
   }
 
-  getPlaces():Observable<Place[]>
-  {
-    return Observable.of(PLACES);
-  }
-  savePlace(place:Place)
-  {
-    return this.backand.object.create(this.MODEL,place);
-  }
+
 
 }

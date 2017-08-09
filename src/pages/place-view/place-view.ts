@@ -1,12 +1,10 @@
 import {Component} from "@angular/core";
 import {IonicPage , NavController , NavParams} from "ionic-angular";
-import {Place} from "../../models/place/place.interface";
-import {FormBuilder , Validators , FormGroup , FormArray , FormControl} from "@angular/forms";
-import {ViewMode} from "../../models/view-mode/view-mode.enum";
+import {FormBuilder , Validators , FormArray} from "@angular/forms";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
-import {ContactPerson} from "../../models/contact-person/contact-person.interface";
 import {SwitchableInputPage} from "../../models/view-mode/SwitchableView";
 import {PlaceProvider} from "../../providers/place/place.provider";
+import {Place} from "../../models/place/place.interface";
 
 /**
  * Generated class for the PlaceViewPage page.
@@ -20,19 +18,18 @@ import {PlaceProvider} from "../../providers/place/place.provider";
              selector: 'page-place-view',
              templateUrl: 'place-view.html',
            })
-export class PlaceViewPage extends SwitchableInputPage
+export class PlaceViewPage extends SwitchableInputPage<Place>
 {
-
-  /********************VIEW SPECIFIC****************************/
 
 
 
   constructor(navCtrl: NavController, private navParams: NavParams,private _fb: FormBuilder,private placeProvider:PlaceProvider)
   {
-    super(navCtrl, navParams.get("model"));
+    super(navCtrl, navParams.get("model"),placeProvider);
     this.initForm();
     this.fillFormWithData();
     this.switchMode(navParams.get('mode'));
+    this.copyKeys=['name','contactPeople'];
 
   }
 
@@ -50,7 +47,7 @@ export class PlaceViewPage extends SwitchableInputPage
 
   public addContactPerson()
   {
-    this.model.contactPeople.push({name:'',phones:['']});
+    this.model.contactPeople.push({name:'',phones:[]});
   }
 
   removeContactPerson(i:number)
@@ -67,19 +64,5 @@ export class PlaceViewPage extends SwitchableInputPage
     return this.modelForm.get("contactPeople")as FormArray;
   }
 
-  /********************VIEW SPECIFIC****************************/
-
-
-
-  saveView() : void
-  {
-    this.placeProvider.savePlace(this.modelForm.value).then((res: any) => {
-      console.log(res);
-
-    }).catch((err: any) => {
-      console.log(err);
-    });
-    console.log(JSON.stringify(this.modelForm.value));
-  }
 
 }

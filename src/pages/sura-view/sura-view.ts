@@ -4,6 +4,7 @@ import {SwitchableInputPage} from "../../models/view-mode/SwitchableView";
 import {FormBuilder , Validators} from "@angular/forms";
 import {SuraProvider} from "../../providers/sura/sura.provider";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
+import {Sura} from "../../models/sura/sura.interface";
 
 @IonicPage()
 @Component({
@@ -11,16 +12,18 @@ import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
   templateUrl: 'sura-view.html',
 })
 @PageNameInjector("SuraViewPage")
-export class SuraViewPage extends SwitchableInputPage
+export class SuraViewPage extends SwitchableInputPage<Sura>
 {
 
 
   constructor(public navCtrl: NavController, private navParams: NavParams,private _fb: FormBuilder,suraProvider:SuraProvider)
   {
-    super(navCtrl, navParams.get("model"));
+    super(navCtrl, navParams.get("model"),suraProvider);
     this.initForm();
     this.fillFormWithData();
     this.switchMode(navParams.get('mode'));
+    this.copyKeys=['name','versesCount','order','description'];
+
   }
   initForm() : void
   {
@@ -36,9 +39,6 @@ export class SuraViewPage extends SwitchableInputPage
   fillFormWithData()
   {
     this.modelForm.patchValue(this.model);
-  }
-  saveView()
-  {
   }
 
 }

@@ -1,10 +1,19 @@
-
 <ion-header>
 
   <ion-navbar>
     <ion-title>{{pageTitle}}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="addNewPupil()">أضافة</button>
+      <div *ngIf="!isEditing; else elseBlock">
+        <button ion-button (click)="addNewModel()">أضافة</button>
+        <button ion-button (click)="isEditing=true">تعديل</button>
+
+      </div>
+      <ng-template #elseBlock>
+        <button ion-button [disabled]="selectedItems.length == 0" (click)="deleteItems()">حذف</button>
+        <button ion-button (click)="isEditing=false">الغاء</button>
+      </ng-template>
+
+
     </ion-buttons>
   </ion-navbar>
 
@@ -13,18 +22,46 @@
 
 <ion-content padding>
 
+  <items-list [filterField]="'fullName'" [allItems]="items"  [isSelectable]="isEditing" (onClick)="selectItem($event)"
+              (selectedItemsChange)="selectedItems=$event">
+    <ng-template let-item>
+      <ion-row >
 
-  <ion-list inset>
-    <ion-item *ngFor="let pupil of (pupilProvider.getPupils() | async)" (click)="selectItem(pupil)">
-      <ion-avatar item-start>
-        <img src="../../assets/avatar.png">
-      </ion-avatar>
-      <h2>{{pupil.fullName}}</h2>
+      <ion-col col-5>
+        <ion-avatar item-start>
+          <img src="../../assets/avatar.png">
+        </ion-avatar>
+      </ion-col>
+        <ion-col>
+          <ion-row>
+            {{item.fullName}}
+          </ion-row>
+          <ion-row>
+            {{item.gender}}
+          </ion-row>
+        <ion-row>
+          {{item.address}}
+        </ion-row>
+        </ion-col>
+        </ion-row>
 
-      <p>{{genders[pupil.gender]}}</p>
-      <p>{{pupil.address}} </p>
-    </ion-item>
 
-  </ion-list>
+    </ng-template>
+
+  </items-list>
+
+
+  <!--<ion-list inset>-->
+  <!--<ion-item *ngFor="let pupil of (pupils$| async)" (click)="selectItem(pupil)">-->
+  <!--<ion-avatar item-start>-->
+  <!--<img src="../../assets/avatar.png">-->
+  <!--</ion-avatar>-->
+  <!--<h2>{{pupil.fullName}}</h2>-->
+
+  <!--<p>{{genders[pupil.gender]}}</p>-->
+  <!--<p>{{pupil.address}} </p>-->
+  <!--</ion-item>-->
+
+  <!--</ion-list>-->
 
 </ion-content>

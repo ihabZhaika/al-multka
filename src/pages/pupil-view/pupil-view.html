@@ -4,7 +4,6 @@
     <ion-title>{{pageTitle}}</ion-title>
     <ion-buttons end>
       <button *ngIf="!isEditable()" ion-button (click)="switchMode(viewMode.edit)">تعديل</button>
-
       <div *ngIf="isEditable()">
         <button ion-button [disabled]="!modelForm.valid" (click)="saveView()">حفظ</button>
         <button ion-button (click)="cancel()">الغاء</button>
@@ -14,12 +13,24 @@
 
   </ion-navbar>
 
+  <div padding>
+    <ion-segment [(ngModel)]="selectedSegment">
+      <ion-segment-button value="Details">
+        التفاصيل
+      </ion-segment-button>
+      <ion-segment-button value="Courses">
+        الدورات
+      </ion-segment-button>
+    </ion-segment>
+  </div>
 </ion-header>
 
 
-<ion-content padding>
+<ion-content padding [ngSwitch]="selectedSegment">
 
-  <form [formGroup]="modelForm" novalidate>
+
+
+  <form [formGroup]="modelForm" novalidate *ngSwitchCase="'Details'">
 
     <ion-avatar>
       <img src="../../assets/avatar.png">
@@ -32,7 +43,7 @@
 
     <ion-label stacked>الجنس</ion-label>
     <ion-select [disabled]="!isEditable()" style="position: relative" formControlName="gender">
-      <ion-option *ngFor="let key of genderKeys" [value]="key" >{{genders[key]}}</ion-option>
+      <ion-option *ngFor="let key of genderKeys" [value]="genders[key]" >{{genders[key]}}</ion-option>
     </ion-select>
 
 
@@ -41,7 +52,7 @@
 
 
     <ion-label stacked>تاريخ الميلاد</ion-label>
-      <ion-datetime  [disabled]="!isEditable()" style="position: relative" displayFormat="YYYY-M-D	" pickerFormat="YYYY-M-D" formControlName="birthData"  >تاريخ الميلاد</ion-datetime>
+      <ion-datetime  [disabled]="!isEditable()" style="position: relative" displayFormat="YYYY-M-D" pickerFormat="YYYY-M-D" formControlName="birthData"  >تاريخ الميلاد</ion-datetime>
 
 
     <ion-label stacked>ملاحظات خاصة</ion-label>
@@ -83,5 +94,9 @@
     </div>
 
   </form>
+
+  <div *ngSwitchCase="'Courses'">
+    courses
+  </div>
   {{modelForm.value|json}}
 </ion-content>

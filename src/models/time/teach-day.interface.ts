@@ -5,7 +5,7 @@ import {Time} from "./time.interface";
  */
 export interface TeachDay
 {
-  day:Day;
+  day:Day|String;
   from:string;
   to:string;
 }

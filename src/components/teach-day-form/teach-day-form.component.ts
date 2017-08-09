@@ -34,7 +34,7 @@ export class TeachDayFormComponent implements OnInit
 
   private initTeachDay(teachDay?:TeachDay):FormGroup
   {
-    let day:Day = Day.الأحد;
+    let day:Day|String = Day[Day.الأحد];
     let from:string = new Date().toISOString();
     let to:string = new Date().toISOString();
     if(teachDay)

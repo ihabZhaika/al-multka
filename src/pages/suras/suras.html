@@ -1,10 +1,19 @@
-
 <ion-header>
 
   <ion-navbar>
     <ion-title>{{pageTitle}}</ion-title>
     <ion-buttons end>
-      <button ion-button (click)="addNewSura()">أضافة</button>
+      <div *ngIf="!isEditing; else elseBlock">
+        <button ion-button (click)="addNewModel()">أضافة</button>
+        <button ion-button (click)="isEditing=true">تعديل</button>
+
+      </div>
+      <ng-template #elseBlock>
+        <button ion-button [disabled]="selectedItems.length == 0" (click)="deleteItems()">حذف</button>
+        <button ion-button (click)="isEditing=false">الغاء</button>
+      </ng-template>
+
+
     </ion-buttons>
   </ion-navbar>
 
@@ -13,18 +22,24 @@
 
 <ion-content padding>
 
-  <ion-list inset>
+  <items-list [filterField]="'name'" [allItems]="items"  [isSelectable]="isEditing" (onClick)="selectItem($event)"
+              (selectedItemsChange)="selectedItems=$event">
+    <ng-template let-item>
 
-    <ion-item *ngFor="let sura of (suraProvider.getSuras()|async)" (click)="selectItem(sura)" >
-    <span float-right>
-      <h2>{{sura.name}}</h2>
-    </span>
+      <ion-row>
 
-      <span float-left>
-      <h2>{{sura.order}}</h2>
-    </span>
-    </ion-item>
+        <ion-col>
+          {{item.name}}
+        </ion-col>
 
-  </ion-list>
+        <ion-col>
+          {{item.order}}
+        </ion-col>
+
+      </ion-row>
+
+    </ng-template>
+
+  </items-list>
 
 </ion-content>

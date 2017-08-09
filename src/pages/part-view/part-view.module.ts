@@ -4,14 +4,17 @@ import {PartViewPage} from "./part-view";
 import {ComponentsModule} from "../../components/components.module";
 
 @NgModule({
-  declarations: [
-    PartViewPage,
-  ],
-  imports: [
-    IonicPageModule.forChild(PartViewPage),ComponentsModule],
+            declarations: [
+              PartViewPage,
+            ],
+            imports:
+              [
+                IonicPageModule.forChild(PartViewPage)
+                ,ComponentsModule
+              ],
 
-  exports: [
-    PartViewPage
-  ]
-})
+            exports: [
+              PartViewPage
+            ]
+          })
 export class PartViewPageModule {}

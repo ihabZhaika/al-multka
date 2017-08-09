@@ -3,7 +3,7 @@
  */
 export interface Sura
 {
-  id?:string;
+  _id?:string;
   name:string;
   versesCount:number;
   order:number;

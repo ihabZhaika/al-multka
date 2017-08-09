@@ -68,7 +68,7 @@ export class AuthProvider {
   {
     localStorage.setItem(this.LOCAL_STORAGE_IS_AUTHENTICATED,`true`);
     localStorage.setItem(this.LOCAL_STORAGE_USER_PHONE,`${phone}`);
-    await this.userProvider.getUser(phone)
+    // await this.userProvider.getUser(phone)
     this.is_authenticated = true;
   }
   logout()

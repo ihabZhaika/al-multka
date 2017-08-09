@@ -4,10 +4,10 @@ import {Gender} from "../gender/gender.enum";
  */
 export interface Profile
 {
-  id?:string;
+  _id?:string;
   fullName:string;
   address:string;
   birthData:string;
-  gender:Gender;
+  gender:Gender|String;
 
 }

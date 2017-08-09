@@ -22,16 +22,32 @@
     <div formArrayName="phones">
 
       <div *ngFor="let phone of contactPersonForm.controls.phones.controls; let j=index" >
-        <ion-row>
-          <ion-col col-9>
-            <ion-input [readonly]="!isEditable" [formControlName]="j"></ion-input>
-            <small text-wrap *ngIf="!phone.valid && phone.dirty" primary>الرجاء ادخال رقم مكون من 6 ارقام على الاقل</small>
-          </ion-col>
-          <ion-col col-1 col-2 *ngIf="isEditable">
-            <button *ngIf="contactPersonForm.controls.phones.controls.length > 1" color="danger" ion-button (click)="removePhone(j)">X</button>
-          </ion-col>
-        </ion-row>
+
+        <div [formGroupName]="j">
+
+          <ion-row >
+            <ion-col col-6>
+              <ion-input [readonly]="!isEditable" formControlName="number"></ion-input>
+              <small text-wrap *ngIf="!phone.valid && phone.dirty" primary>الرجاء ادخال رقم مكون من 6 ارقام على الاقل</small>
+            </ion-col>
+
+            <ion-col col-3>
+              <ion-select formControlName="prefix">
+                <ion-option value="+972">+972</ion-option>
+                <ion-option value="+971">+971</ion-option>
+              </ion-select>
+              <small text-wrap *ngIf="!phone.valid && phone.dirty" primary>الرجاء ادخال رقم مكون من 6 ارقام على الاقل</small>
+            </ion-col>
+
+            <ion-col col-1 col-2 *ngIf="isEditable">
+              <button *ngIf="contactPersonForm.controls.phones.controls.length > 1" color="danger" ion-button (click)="removePhone(j)">X</button>
+            </ion-col>
+          </ion-row>
+
+        </div>
+
       </div>
+
     </div>
 
   </ion-card-content>

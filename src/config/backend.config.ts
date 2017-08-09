@@ -3,6 +3,6 @@
  */
 export const BACKEND_CONFIG = {
 
-  appName: 'almultka',
-  anonymousToken: '5893f485-0461-48e3-acac-819f79e29748'
+  SERVER_URL:"http://localhost:3000"
+
 };

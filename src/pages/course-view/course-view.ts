@@ -16,7 +16,7 @@ import {TimeFormatPipe} from "../../pipes/time-format/time-format.pipe";
   templateUrl: 'course-view.html',
 })
 @PageNameInjector("CourseViewPage")
-export class CourseViewPage extends SwitchableInputPage
+export class CourseViewPage extends SwitchableInputPage<Course>
 {
 
   static COURSE_PARAMS_KEY='course';
@@ -25,14 +25,16 @@ export class CourseViewPage extends SwitchableInputPage
 
   constructor(navCtrl: NavController, public navParams: NavParams,private _fb: FormBuilder,courseProvider:CourseProvider)
   {
-    super(navCtrl, navParams.get("model"));
+    super(navCtrl, navParams.get("model"),courseProvider);
     this.initForm();
     this.fillFormWithData();
     // fill other details
     this.switchMode(navParams.get('mode'));
+    this.copyKeys=['title','gender','teachDays','ageRange'];
 
     //noinspection TypeScriptValidateTypes
     this.genderKeys = Object.keys(this.genders).filter(Number);
+
 
   }
 
@@ -41,7 +43,7 @@ export class CourseViewPage extends SwitchableInputPage
     this.modelForm = this._fb.group({
                                       title : ['' , [<any>Validators.required , <any>Validators.minLength(1)]] ,
                                       gender : ['' , [<any>Validators.required , <any>Validators.minLength(1)]] ,
-                                      teachDays : this._fb.array([]),
+                                      teachDays : this._fb.array([],Validators.minLength(1)),
                                       ageRange : this._fb.group({
                                                                   from : ['' , [<any>Validators.required , <any>Validators.minLength(1)]] ,
                                                                   to : ['' , [<any>Validators.required , <any>Validators.minLength(1)]]
@@ -49,10 +51,6 @@ export class CourseViewPage extends SwitchableInputPage
                                     });
   }
 
-
-  saveView()
-  {
-  }
 
 
   removeTeachDay(index)

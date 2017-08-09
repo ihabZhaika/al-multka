@@ -14,10 +14,10 @@ import {CourseGender} from "../gender/course.gender.enum";
  */
 export interface Course
 {
-  id?:string;
+  _id?:string;
   title:string;
   place:Place;
-  gender:CourseGender;
+  gender:CourseGender|String;
   teachDays:TeachDay[];
   ageRange:AgeRange;
   dateRange:DateRange;
@@ -26,8 +26,7 @@ export interface Course
   supervisorsPermissions:UserPermissions[];
   attendances:AttendanceDay[];
   parts:Part[];
-  // {pupilId:PupilExam[],...}
-  pupilsExams:any
+  pupilsExams:PupilExam[]
 
 
 

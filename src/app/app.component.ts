@@ -6,6 +6,7 @@ import {PagesNames} from "../config/pages-name";
 import {AuthProvider} from "../providers/auth/auth.provider";
 import {BackandService} from "@backand/angular2-sdk/src/backand.service";
 import {BACKEND_CONFIG} from "../config/backend.config";
+import {MockDataProvider} from "../providers/mock-data/mock-data.provider";
 @Component({
   templateUrl: 'app.html'
 })
@@ -13,7 +14,7 @@ export class MyApp {
   rootPage:string = "TabsPage";
   pages: Array<{title: string, component: any}>;
   @ViewChild(Nav) nav: Nav;
-  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menuCtrl: MenuController, private auth:AuthProvider,private backand:BackandService)
+  constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menuCtrl: MenuController, private auth:AuthProvider,private mockDataProvider:MockDataProvider)
   {
     // used for an example of ngFor and navigation
     this.pages = [
@@ -38,10 +39,19 @@ export class MyApp {
     platform.ready().then(() => {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
-      statusBar.styleDefault();
-      splashScreen.hide();
-      //noinspection TypeScriptUnresolvedFunction
-      backand.init(BACKEND_CONFIG);
+
+      mockDataProvider.deleteMockData().flatMap(()=>mockDataProvider.insertMockData()).subscribe(
+        value=>
+        {
+          console.log(value);
+        },
+        err=>
+        {
+          // window.prompt(JSON.stringify(err));
+          console.log(err);
+
+        }
+      )
     });
   }
   openPage(page)
@@ -52,13 +62,6 @@ export class MyApp {
     this.menuCtrl.close();
 
   }
-  getList(): void {
-    let res = 'fetching objects...';
-    this.backand.object.getList('users').then((res: any) => {
-      console.log(res.data);
 
-      res = `${res.data.length} objects fetched`;
-    })
-  }
 }
 
