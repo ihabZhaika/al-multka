@@ -2,7 +2,7 @@
 
   <ion-navbar>
     <ion-title>{{pageTitle}}</ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="checkPermission(KEYS.UPDATE)">
       <button *ngIf="!isEditable()" ion-button (click)="switchMode(viewMode.edit)">تعديل</button>
 
       <div *ngIf="isEditable()">

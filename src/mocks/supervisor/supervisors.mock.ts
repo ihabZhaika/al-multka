@@ -2,18 +2,17 @@ import {Gender} from "../../models/gender/gender.enum";
 import {Supervisor} from "../../models/User/supervisor.interface";
 import {Role} from "../../models/role/role.enum";
 import {Permission} from "../../models/permission/permission.interface";
-import {ObjectId} from "../../utils/id-generator";
 /**
  * Created by ihab on 7/2/17.
  */
 
-let pupilsPermission:Permission = {pageName:"pupils",create:true,read:true,update:true,erase:false};
-let coursesPermission:Permission = {pageName:"courses",create:false,read:true,update:true,erase:false};
+let pupilsPermission:Permission = {pageName:"PupilsPage",create:true,read:true,update:true,erase:false};
+let coursesPermission:Permission = {pageName:"CoursesPage",create:false,read:true,update:true,erase:false};
 
 const supervisors:Supervisor[]=
   [
     {
-      _id:ObjectId(),
+      _id:"598dcd5e6545004bc3d7e6b1",
       fullName:"ايهاب زحايكة",
       address:"القدس , جبل المكبر",
       gender:Gender.ذكر,
@@ -26,7 +25,7 @@ const supervisors:Supervisor[]=
       currentTask:"teaching kids",
     },
     {
-      _id:ObjectId(),
+      _id:"598dcd5e8d6cf463cf5a8a57",
       fullName:"عمر جعابيص",
       address:"القدس , جبل المكبر",
       gender:Gender.ذكر,
@@ -39,7 +38,7 @@ const supervisors:Supervisor[]=
       currentTask:"teaching kids",
     },
     {
-      _id:ObjectId(),
+      _id:"598dcd5efde7e10e794c87fa",
       fullName:"فلان الفلاني",
       address:"القدس ,صورباهر",
       gender:Gender.ذكر,

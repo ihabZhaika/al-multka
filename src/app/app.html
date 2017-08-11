@@ -19,9 +19,11 @@
   <ion-content>
     <ion-list>
       <!--<button ion-item>الاحصائيات</button>-->
-      <button ion-item *ngFor="let p of pages" (click)="openPage(p.component)">
-        {{p.title}}
-      </button>
+      <div *ngFor="let p of pages">
+        <button  *ngIf="canView(p.component)" ion-item  (click)="openPage(p.component)">
+          {{p.title}}
+        </button>
+      </div>
       <button item-center ion-item (click)="auth.logout()">تسجيل الخروج</button>
     </ion-list>
   </ion-content>

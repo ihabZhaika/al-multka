@@ -11,6 +11,8 @@ import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 import {AttendanceStatus} from "../../models/attendance/attendance-status.enum";
 import {CoursePupil} from "../../models/course/course-pupil";
 
+
+//TODO: REFACTOR THIS TO USE THE PARENT CLASS
 @IonicPage()
 @Component({
   selector: 'page-course-attendance-days',

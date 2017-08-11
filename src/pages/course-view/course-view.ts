@@ -1,14 +1,14 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from "@angular/core";
+import {IonicPage , NavController , NavParams} from "ionic-angular";
 import {CourseProvider} from "../../providers/course/course.provider";
 import {SwitchableInputPage} from "../../models/view-mode/SwitchableView";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
-import {FormBuilder , Validators , FormGroup , FormArray} from "@angular/forms";
+import {FormBuilder , Validators} from "@angular/forms";
 import {CourseGender} from "../../models/gender/course.gender.enum";
 import {Course} from "../../models/course/course.interface";
 import {TeachDay} from "../../models/time/teach-day.interface";
 import {Day} from "../../models/time/day.enum";
-import {TimeFormatPipe} from "../../pipes/time-format/time-format.pipe";
+import {KEYS} from "../../config/config.keys";
 
 @IonicPage()
 @Component({
@@ -25,7 +25,7 @@ export class CourseViewPage extends SwitchableInputPage<Course>
 
   constructor(navCtrl: NavController, public navParams: NavParams,private _fb: FormBuilder,courseProvider:CourseProvider)
   {
-    super(navCtrl, navParams.get("model"),courseProvider);
+    super(navCtrl, navParams.get("model"),courseProvider,navParams.get(KEYS.PERMISSION_KEY));
     this.initForm();
     this.fillFormWithData();
     // fill other details

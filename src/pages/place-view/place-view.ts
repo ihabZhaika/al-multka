@@ -5,13 +5,9 @@ import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 import {SwitchableInputPage} from "../../models/view-mode/SwitchableView";
 import {PlaceProvider} from "../../providers/place/place.provider";
 import {Place} from "../../models/place/place.interface";
+import {KEYS} from "../../config/config.keys";
 
-/**
- * Generated class for the PlaceViewPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
+
 @IonicPage()
 @PageNameInjector("PlaceViewPage")
 @Component({
@@ -25,7 +21,7 @@ export class PlaceViewPage extends SwitchableInputPage<Place>
 
   constructor(navCtrl: NavController, private navParams: NavParams,private _fb: FormBuilder,private placeProvider:PlaceProvider)
   {
-    super(navCtrl, navParams.get("model"),placeProvider);
+    super(navCtrl, navParams.get("model"),placeProvider,navParams.get(KEYS.PERMISSION_KEY));
     this.initForm();
     this.fillFormWithData();
     this.switchMode(navParams.get('mode'));

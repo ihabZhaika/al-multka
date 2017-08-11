@@ -2,7 +2,7 @@
 
   <ion-navbar>
     <ion-title>{{pageTitle}}</ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="checkPermission(KEYS.UPDATE)">
       <button *ngIf="!isEditable()" ion-button (click)="switchMode(viewMode.edit)">تعديل</button>
       <div *ngIf="isEditable()">
         <button ion-button [disabled]="!modelForm.valid" (click)="saveView()">حفظ</button>
@@ -52,7 +52,8 @@
 
 
     <ion-label stacked>تاريخ الميلاد</ion-label>
-      <ion-datetime  [disabled]="!isEditable()" style="position: relative" displayFormat="YYYY-M-D" pickerFormat="YYYY-M-D" formControlName="birthData"  >تاريخ الميلاد</ion-datetime>
+      <ion-datetime  [disabled]="!isEditable()" style="position: relative" displayFormat="YYYY-M-D" pickerFormat="D-M-YYYY"
+                     formControlName="birthData"  >تاريخ الميلاد</ion-datetime>
 
 
     <ion-label stacked>ملاحظات خاصة</ion-label>

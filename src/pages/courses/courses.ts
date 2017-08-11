@@ -9,6 +9,7 @@ import {Day} from "../../models/time/day.enum";
 import {COURSES} from "../../mocks/course/courses.mock";
 import {PupilsPage} from "../pupils/pupils";
 import {EditableListView} from "../../models/view-mode/editable-list-view";
+import {KEYS} from "../../config/config.keys";
 
 @IonicPage()
 @Component({
@@ -21,7 +22,7 @@ export class CoursesPage extends EditableListView<Course>
 
   constructor(navCtrl: NavController, private navParams: NavParams,public provider:CourseProvider)
   {
-    super(navCtrl,provider,"CourseViewPage");
+    super(navCtrl,provider,"CourseViewPage",navParams.get(KEYS.PERMISSION_KEY));
 
   }
 

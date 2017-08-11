@@ -3,6 +3,8 @@ import {NavController} from "ionic-angular";
 import {FormGroup} from "@angular/forms";
 import {Observable} from "rxjs";
 import {BaseProvider} from "../../providers/base-provider";
+import {Permission} from "../permission/permission.interface";
+import {KEYS} from "../../config/config.keys";
 /**
  * Created by ihab on 7/3/17.
  */
@@ -12,13 +14,14 @@ export abstract class SwitchableInputPage<T>
    * Used in the html to be able to access the enum
    * @type {ViewMode}
    */
+  KEYS = KEYS;
   public viewMode = ViewMode;
   protected currentViewMode:ViewMode;
   public modelForm:FormGroup;
   public model:T;
   private modelCopy:any;
   protected copyKeys=[];
-  constructor(protected navCtrl: NavController,model:any,public provider:BaseProvider )
+  constructor(protected navCtrl: NavController,model:any,public provider:BaseProvider,public pagePermissions:Permission )
   {
     this.model = model;
   }
@@ -29,6 +32,11 @@ export abstract class SwitchableInputPage<T>
   {
     this.modelCopy = this.modelForm.value;
 
+  }
+
+  checkPermission(kind:string)
+  {
+    return this.pagePermissions[kind];
   }
 
   fillFormWithData()

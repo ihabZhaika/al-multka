@@ -5,6 +5,7 @@ import {FormBuilder , Validators} from "@angular/forms";
 import {SuraProvider} from "../../providers/sura/sura.provider";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 import {Sura} from "../../models/sura/sura.interface";
+import {KEYS} from "../../config/config.keys";
 
 @IonicPage()
 @Component({
@@ -15,10 +16,9 @@ import {Sura} from "../../models/sura/sura.interface";
 export class SuraViewPage extends SwitchableInputPage<Sura>
 {
 
-
   constructor(public navCtrl: NavController, private navParams: NavParams,private _fb: FormBuilder,suraProvider:SuraProvider)
   {
-    super(navCtrl, navParams.get("model"),suraProvider);
+    super(navCtrl, navParams.get("model"),suraProvider,navParams.get(KEYS.PERMISSION_KEY));
     this.initForm();
     this.fillFormWithData();
     this.switchMode(navParams.get('mode'));

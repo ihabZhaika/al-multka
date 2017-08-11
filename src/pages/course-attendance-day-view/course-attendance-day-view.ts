@@ -5,10 +5,10 @@ import {FormBuilder , Validators , FormArray} from "@angular/forms";
 import {CourseProvider} from "../../providers/course/course.provider";
 import {PupilAttendance} from "../../models/attendance/pupil-attendance.interface";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
-import {AttendanceStatus} from "../../models/attendance/attendance-status.enum";
 import {Course} from "../../models/course/course.interface";
 import {MultiItemSelectModalPage} from "../multi-item-select-modal/multi-item-select-modal";
 import {AttendanceDay} from "../../models/attendance/attendance-day.interface";
+import {KEYS} from "../../config/config.keys";
 
 @IonicPage()
 @Component({
@@ -24,7 +24,7 @@ export class CourseAttendanceDayViewPage extends SwitchableInputPage<AttendanceD
   constructor(public navCtrl: NavController, navParams: NavParams, private _fb: FormBuilder,courseProvider:CourseProvider
     ,  public modalCtrl: ModalController)
   {
-    super(navCtrl, navParams.get("model"),courseProvider);
+    super(navCtrl, navParams.get("model"),courseProvider,navParams.get(KEYS.PERMISSION_KEY));
     this.course = navParams.get('course');
     this.initForm();
     this.fillFormWithData();

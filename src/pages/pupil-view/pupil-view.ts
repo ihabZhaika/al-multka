@@ -6,7 +6,7 @@ import {FormBuilder , Validators , FormArray} from "@angular/forms";
 import {PupilProvider} from "../../providers/pupil/pupil.provider";
 import {Gender} from "../../models/gender/gender.enum";
 import {Pupil} from "../../models/pupil/pupil.interface";
-import {ValidatorUtils} from "../../utils/validators-utils";
+import {KEYS} from "../../config/config.keys";
 
 @IonicPage()
 @Component({
@@ -23,12 +23,13 @@ export class PupilViewPage extends SwitchableInputPage<Pupil>
   constructor(navCtrl: NavController, public navParams: NavParams,protected _fb: FormBuilder,private pupilProvider:PupilProvider,
               private _changeDetectionRef : ChangeDetectorRef)
   {
-    super(navCtrl, navParams.get("model"),pupilProvider);
+    super(navCtrl, navParams.get("model"),pupilProvider,navParams.get(KEYS.PERMISSION_KEY));
     this.initForm();
     this.fillFormWithData();
     this.switchMode(navParams.get('mode'));
     this.copyKeys=['fullName','address','birthData','gender','privateNotes','publicNotes','contactPeople'];
-
+    //noinspection TypeScriptValidateTypes
+    this.genderKeys = Object.keys(this.genders).filter(Number);
   }
 
 

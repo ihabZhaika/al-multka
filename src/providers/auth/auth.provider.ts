@@ -14,30 +14,40 @@ export class AuthProvider
   private LOCAL_STORAGE_IS_AUTHENTICATED="authenticated";
   private LOCAL_STORAGE_USER_PHONE="phone";
   private LOCAL_STORAGE_USER_ID="id";
-  private user:User;
+  public user:User;
   constructor(private http:Http,private supervisorProvider:SupervisorProvider)
   {
     this.authStatus = new Subject<boolean>();
   }
 
-  public checkAuthentication()
+
+  getSessionUserId():string
   {
     let isAuthenticated = localStorage.getItem(this.LOCAL_STORAGE_IS_AUTHENTICATED) || false;
-    let userPhone = localStorage.getItem(this.LOCAL_STORAGE_USER_PHONE);
-    let userId = localStorage.getItem(this.LOCAL_STORAGE_USER_ID);
+    let userPhone = localStorage.getItem(this.LOCAL_STORAGE_USER_PHONE) ;
+    let userId = localStorage.getItem(this.LOCAL_STORAGE_USER_ID) ;
 
-    if (isAuthenticated && JSON.parse(isAuthenticated) == true && userPhone)
+    if (isAuthenticated && JSON.parse(isAuthenticated) == true && userPhone && userId)
     {
-      this.authStatus.next(true);
-      console.log("True");
-
+      return userId;
     }
-    else
-    {
-      console.log("false");
-      this.authStatus.next(false);
-    }
+    return null;
   }
+
+  validateSession()
+  {
+    console.log("In validate session");
+    let id = this.getSessionUserId();
+    let result = false;
+    if(id)
+    {
+      result = true;
+    }
+    this.authStatus.next(result);
+
+  }
+
+
   signWithPhone(phoneNumber:string) : Observable<any>
   {
     return this.supervisorProvider.getAll([`phone=${phoneNumber}`]);
@@ -70,21 +80,11 @@ export class AuthProvider
 
   // }
 
-  setUser(id:string)
+  getSessionUser(id:string):Observable<User>
   {
-    this.supervisorProvider.getById(id).subscribe(
-      response=>
-      {
-        this.user = response;
-      },
-      err=>
-      {
-        this.authStatus.next(false);
-        console.error("Failed to fetch the saved user from the server",err);
-      }
-
-    );
+    return this.supervisorProvider.getById(id);
   }
+
   authenticateUser(user:User)
   {
     console.log("THe logged user is",user);
@@ -97,6 +97,7 @@ export class AuthProvider
   }
   logout()
   {
+    console.log("In logout");
     localStorage.removeItem(this.LOCAL_STORAGE_IS_AUTHENTICATED);
     localStorage.removeItem(this.LOCAL_STORAGE_USER_PHONE);
     localStorage.removeItem(this.LOCAL_STORAGE_USER_ID);

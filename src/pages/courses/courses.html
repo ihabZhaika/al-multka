@@ -6,11 +6,10 @@
       <ion-icon name="menu"></ion-icon>
     </button>
     <ion-title>{{pageTitle}}</ion-title>
-    <ion-buttons end>
+    <ion-buttons end *ngIf="checkPermission(KEYS.UPDATE)">
       <div *ngIf="!isEditing; else elseBlock">
-        <button ion-button (click)="addNewModel()">أضافة</button>
-        <button ion-button (click)="isEditing=true">تعديل</button>
-
+        <button *ngIf="checkPermission(KEYS.CREATE)" ion-button (click)="addNewModel()">أضافة</button>
+        <button *ngIf="checkPermission(KEYS.ERASE)" ion-button (click)="isEditing=true">تعديل</button>
       </div>
       <ng-template #elseBlock>
         <button ion-button [disabled]="selectedItems.length == 0" (click)="deleteItems()">حذف</button>

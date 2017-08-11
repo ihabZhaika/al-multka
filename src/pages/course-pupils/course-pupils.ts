@@ -5,13 +5,8 @@ import {CourseViewPage} from "../course-view/course-view";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 import {EditableListView} from "../../models/view-mode/editable-list-view";
 import {CourseProvider} from "../../providers/course/course.provider";
+import {KEYS} from "../../config/config.keys";
 
-/**
- * Generated class for the CoursePupilsPage page.
- *
- * See http://ionicframework.com/docs/components/#navigation for more info
- * on Ionic pages and navigation.
- */
 @IonicPage()
 @Component({
              selector: 'page-course-pupils',
@@ -23,7 +18,7 @@ export class CoursePupilsPage  extends EditableListView<Course>
   courseId:string;
   constructor(public navCtrl: NavController, public navParams: NavParams,provider:CourseProvider)
   {
-    super(navCtrl,provider,"CoursePupilsViewPage");
+    super(navCtrl,provider,"CoursePupilsViewPage",navParams.get(KEYS.PERMISSION_KEY));
     this.courseId = navParams.get(CourseViewPage.COURSE_PARAMS_KEY);
   }
 

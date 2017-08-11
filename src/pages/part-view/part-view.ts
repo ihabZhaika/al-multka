@@ -8,6 +8,7 @@ import {SuraProvider} from "../../providers/sura/sura.provider";
 import {Sura} from "../../models/sura/sura.interface";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 import {Part} from "../../models/part/part.interface";
+import {KEYS} from "../../config/config.keys";
 
 @IonicPage()
 @Component({
@@ -22,7 +23,7 @@ export class PartViewPage  extends SwitchableInputPage<Part>
               public modalCtrl: ModalController,public partProvider:PartProvider,public suraProvider:SuraProvider,
               public alertCtrl: AlertController)
   {
-    super(navCtrl, navParams.get("model"),partProvider,);
+    super(navCtrl, navParams.get("model"),partProvider,navParams.get(KEYS.PERMISSION_KEY));
     this.initForm();
     this.fillFormWithData();
     this.switchMode(navParams.get('mode'));

@@ -10,11 +10,13 @@
     <ion-row>
       من
       <ion-col>
-        <ion-datetime formControlName="from"  [disabled]="!isEditable" style="position: relative" displayFormat="HH:mm" pickerFormat="HH mm"  ></ion-datetime>
+        <ion-datetime formControlName="from"  [disabled]="!isEditable" style="position: relative" displayFormat="HH:mm"
+                      pickerFormat="mm:HH"  ></ion-datetime>
       </ion-col>
       الى
       <ion-col>
-        <ion-datetime formControlName="to"  [disabled]="!isEditable" style="position: relative" displayFormat="HH:mm" pickerFormat="HH mm"  ></ion-datetime>
+        <ion-datetime formControlName="to"  [disabled]="!isEditable" style="position: relative" displayFormat="HH:mm"
+                      pickerFormat="mm:HH"  ></ion-datetime>
 
       </ion-col>
     </ion-row>
