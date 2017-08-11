@@ -9,6 +9,7 @@ import {Pupil} from "../../models/pupil/pupil.interface";
 import {PupilAttendance} from "../../models/attendance/pupil-attendance.interface";
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 import {AttendanceStatus} from "../../models/attendance/attendance-status.enum";
+import {CoursePupil} from "../../models/course/course-pupil";
 
 @IonicPage()
 @Component({
@@ -36,9 +37,9 @@ export class CourseAttendanceDaysPage
   initEmptyAttendanceDay():AttendanceDay
   {
     let pupilsAttendance:PupilAttendance[]=[];
-    this.course.pupils.forEach((pupil:Pupil)=>
+    this.course.pupils.forEach((coursePupil:CoursePupil)=>
                                {
-                                 pupilsAttendance.push({pupil:pupil,attended:AttendanceStatus.حضور})
+                                 pupilsAttendance.push({pupil:coursePupil.pupil,attended:AttendanceStatus.حضور})
                                });
     let attendanceDay:AttendanceDay =
     {

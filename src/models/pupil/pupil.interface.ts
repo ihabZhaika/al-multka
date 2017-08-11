@@ -9,5 +9,4 @@ export interface Pupil extends Profile
   privateNotes:string;
   publicNotes:string;
   contactPeople:ContactPerson[]
-  courses:Course[]
 }

@@ -19,7 +19,6 @@ const pupils:Pupil[]=
       privateNotes:"يحتاج الى المزيد من الوقت",
       publicNotes:"ممتاز",
       contactPeople:[CONTACT_PEOPLE[0]],
-      courses:[]
     },
     {
       _id:ObjectId(),
@@ -30,7 +29,6 @@ const pupils:Pupil[]=
       privateNotes:"",
       publicNotes:"يحتاج الي المزبد من الحفظ",
       contactPeople:[CONTACT_PEOPLE[3]],
-      courses:[]
 
     },
     {
@@ -42,7 +40,6 @@ const pupils:Pupil[]=
       privateNotes:"",
       publicNotes:"",
       contactPeople:[CONTACT_PEOPLE[1],CONTACT_PEOPLE[2]],
-      courses:[]
 
     },
     {
@@ -54,7 +51,6 @@ const pupils:Pupil[]=
       privateNotes:"very bad",
       publicNotes:"very good",
       contactPeople:[CONTACT_PEOPLE[4]],
-      courses:[]
 
     }
 

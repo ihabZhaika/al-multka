@@ -7,8 +7,8 @@ import {ObjectId} from "../../utils/id-generator";
  * Created by ihab on 7/2/17.
  */
 
-let pupilsPermission:Permission = {name:"pupils",create:true,read:true,update:true,erase:false};
-let coursesPermission:Permission = {name:"courses",create:false,read:true,update:true,erase:false};
+let pupilsPermission:Permission = {pageName:"pupils",create:true,read:true,update:true,erase:false};
+let coursesPermission:Permission = {pageName:"courses",create:false,read:true,update:true,erase:false};
 
 const supervisors:Supervisor[]=
   [
@@ -24,7 +24,6 @@ const supervisors:Supervisor[]=
       qualifications:"first degree in A,B,C",
       phoneNumbers:[],
       currentTask:"teaching kids",
-      courses:[]
     },
     {
       _id:ObjectId(),
@@ -33,12 +32,11 @@ const supervisors:Supervisor[]=
       gender:Gender.ذكر,
       birthData:new Date().toISOString(),
       phone:"0599999999",
-      role:Role.supervisor,
+      role:Role.admin,
       permissions:[pupilsPermission,coursesPermission],
       qualifications:"لقب اول في الشريعة",
       phoneNumbers:["+972532889564"],
       currentTask:"teaching kids",
-      courses:[]
     },
     {
       _id:ObjectId(),
@@ -52,9 +50,8 @@ const supervisors:Supervisor[]=
       qualifications:"first degree in A,B,C",
       phoneNumbers:[],
       currentTask:"teaching kids",
-      courses:[]
     }
 
   ];
 
-export const SUERPVISORS = supervisors;
+export const SUPERVISORS = supervisors;

@@ -34,7 +34,6 @@ export class PupilsPage extends EditableListView<Pupil>
       privateNotes:"",
       publicNotes:"",
       contactPeople:[],
-      courses:[]
     };
     return pupil;
   }

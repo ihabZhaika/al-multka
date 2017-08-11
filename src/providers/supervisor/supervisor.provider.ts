@@ -4,12 +4,12 @@ import "rxjs/add/operator/map";
 import {BaseProvider} from "../base-provider";
 
 @Injectable()
-export class PlaceProvider extends BaseProvider
+export class SupervisorProvider extends BaseProvider
 {
 
   constructor(public http: Http)
   {
-    super(http,'places');
+    super(http,'supervisors');
   }
 
 

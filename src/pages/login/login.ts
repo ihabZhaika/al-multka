@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {IonicPage , NavController , NavParams , ToastController} from 'ionic-angular';
 import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
 
 /**
@@ -10,17 +10,36 @@ import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
  */
 @IonicPage()
 @Component({
-  selector: 'page-login',
-  templateUrl: 'login.html',
-})
+             selector: 'page-login',
+             templateUrl: 'login.html',
+           })
 @PageNameInjector("LoginPage")
 export class LoginPage {
 
-  constructor(public navCtrl: NavController, public navParams: NavParams) {
+  constructor(public navCtrl: NavController, public navParams: NavParams,private toasController:ToastController)
+  {
   }
 
-  ionViewDidLoad() {
-    console.log('ionViewDidLoad LoginPage');
+  login(isLoggedIn:boolean)
+  {
+
+    console.log("Login Page");
+    if (isLoggedIn)
+    {
+      this.toasController.create({
+                                   message:"تم تسجيل الدخول بنجاح",
+                                   duration:3000
+                                 }).present();
+      this.navCtrl.setRoot('TabsPage');
+    }
+    // else
+    // {
+    //   this.toasController.create({
+    //                                message:"لم يتم تسجيل الدخول بنجاح",
+    //                                duration:3000
+    //                              }).present();
+    // }
+
   }
 
 }

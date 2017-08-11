@@ -3,7 +3,7 @@
  */
 export interface Permission
 {
-  name:string;
+  pageName:string;
   create:boolean;
   read:boolean;
   update:boolean;

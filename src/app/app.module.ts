@@ -10,7 +10,6 @@ import {HttpModule} from "@angular/http";
 import {UserProvider} from "../providers/user/user.provider";
 import {PlaceProvider} from "../providers/place/place.provider";
 import {BackandService} from "@backand/angular2-sdk/src/backand.service";
-import {AngularFireModule} from "angularfire2";
 import io from "socket.io-client";
 import {PupilProvider} from "../providers/pupil/pupil.provider";
 import {CourseProvider} from "../providers/course/course.provider";
@@ -20,7 +19,7 @@ import {PartProvider} from "../providers/part/part.provider";
 import {MultiItemSelectModalPage} from "../pages/multi-item-select-modal/multi-item-select-modal";
 import {MultiItemSelectModalPageModule} from "../pages/multi-item-select-modal/multi-item-select-modal.module";
 import {MockDataProvider} from "../providers/mock-data/mock-data.provider";
-import { ItemsListComponent } from '../components/items-list/items-list';
+import {SupervisorProvider} from "../providers/supervisor/supervisor.provider";
 window["io"] = io;
 @NgModule({
             declarations:
@@ -57,7 +56,8 @@ window["io"] = io;
               CourseProvider,
               SuraProvider,
               PartProvider,
-              MockDataProvider
+              MockDataProvider,
+              SupervisorProvider
             ]
           })
 export class AppModule {}

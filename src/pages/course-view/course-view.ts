@@ -64,7 +64,7 @@ export class CourseViewPage extends SwitchableInputPage<Course>
   navigateToPage(pageName)
   {
     let data ={};
-    data[CourseViewPage.COURSE_PARAMS_KEY] = this.model;
+    data[CourseViewPage.COURSE_PARAMS_KEY] = this.model._id;
     this.navCtrl.push(pageName,data);
   }
 

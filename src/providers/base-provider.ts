@@ -17,9 +17,26 @@ export class BaseProvider
     this.HEADER.append('Content-Type', 'application/json');
     this.OPTIONS={headers:this.HEADER};
   }
-  getAll():Observable<[any]>
+  getAll(query?:string[]):Observable<[any]>
   {
-    return this.http.get(this.API_URL,this.OPTIONS).map(response=>response.json());
+    let options:RequestOptions = new RequestOptions();
+    options.headers = this.HEADER;
+    let params:URLSearchParams = new URLSearchParams();
+    options.params =params;
+
+    if(query)
+    {
+      query.forEach((pair:string)=>
+                    {
+                      let raw = pair.split("=");
+                      let key = raw[0];
+                      let value = raw[1];
+                      params.append(key,value);
+                    });
+    }
+
+
+    return this.http.get(this.API_URL,options).map(response=>response.json());
 
   }
   insert(model:any):Observable<any>
@@ -29,7 +46,7 @@ export class BaseProvider
   }
   getById(id:String):Observable<any>
   {
-    return this.http.get(this.API_URL,this.OPTIONS).map(response=>response.json());
+    return this.http.get(`${this.API_URL}/${id}`,this.OPTIONS).map(response=>response.json());
 
   }
   updateById(id:string, model:any):Observable<any>

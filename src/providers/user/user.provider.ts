@@ -1,15 +1,19 @@
 import {Injectable} from "@angular/core";
 import "rxjs/add/operator/map";
-import {AngularFireDatabase} from "angularfire2/database/database";
+import {SupervisorProvider} from "../supervisor/supervisor.provider";
 import {User} from "../../models/User/user.interface";
 
 @Injectable()
-export class UserProvider {
+export class UserProvider
+{
 
-  API_PATH="/users/";
-  constructor()
+  profile:User;
+  constructor(public supervisorProvider:SupervisorProvider)
   {
+
   }
+
+
 
 
 }

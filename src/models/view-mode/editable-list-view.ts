@@ -11,7 +11,6 @@ export abstract class EditableListView<T>
   constructor(public navCtrl: NavController,public provider:BaseProvider,public viewPageName:string)
   {
     this.isEditing=false;
-
   }
 
   ionViewWillEnter()
@@ -30,8 +29,14 @@ export abstract class EditableListView<T>
 
   selectItem(model:T)
   {
-    // edit the
-    this.navCtrl.push(this.viewPageName,{model:model,mode:ViewMode.view});
+    this.provider.getById(model["_id"]).subscribe(result=>
+                                                  {
+                                                    this.navCtrl.push(this.viewPageName,{model:result,mode:ViewMode.view});
+                                                  },
+                                                  err=>
+                                                  {
+                                                    console.error(err);
+                                                  });
   }
   addNewModel()
   {

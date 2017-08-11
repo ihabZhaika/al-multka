@@ -5,10 +5,9 @@ import {DateRange} from "../time/date-range.interface";
 import {UserPermissions} from "../permission/user-permission.interface";
 import {AttendanceDay} from "../attendance/attendance-day.interface";
 import {Part} from "../part/part.interface";
-import {PupilExam} from "../exam/pupil-exam.interface";
 import {Supervisor} from "../User/supervisor.interface";
-import {Pupil} from "../pupil/pupil.interface";
 import {CourseGender} from "../gender/course.gender.enum";
+import {CoursePupil} from "./course-pupil";
 /**
  * Created by ihab on 6/30/17.
  */
@@ -22,13 +21,9 @@ export interface Course
   ageRange:AgeRange;
   dateRange:DateRange;
   supervisors:Supervisor[];
-  pupils:Pupil[];
+  pupils:CoursePupil[];
   supervisorsPermissions:UserPermissions[];
   attendances:AttendanceDay[];
   parts:Part[];
-  pupilsExams:PupilExam[]
-
-
-
 
 }

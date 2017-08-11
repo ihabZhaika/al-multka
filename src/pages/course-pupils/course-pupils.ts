@@ -1,11 +1,10 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
+import {Component} from "@angular/core";
+import {IonicPage , NavController , NavParams} from "ionic-angular";
 import {Course} from "../../models/course/course.interface";
-import {Pupil} from "../../models/pupil/pupil.interface";
-import {ViewMode} from "../../models/view-mode/view-mode.enum";
-import {PupilExam} from "../../models/exam/pupil-exam.interface";
 import {CourseViewPage} from "../course-view/course-view";
-import {Gender} from "../../models/gender/gender.enum";
+import {PageNameInjector} from "../../decorators/page-name-injector.decorator";
+import {EditableListView} from "../../models/view-mode/editable-list-view";
+import {CourseProvider} from "../../providers/course/course.provider";
 
 /**
  * Generated class for the CoursePupilsPage page.
@@ -15,30 +14,30 @@ import {Gender} from "../../models/gender/gender.enum";
  */
 @IonicPage()
 @Component({
-  selector: 'page-course-pupils',
-  templateUrl: 'course-pupils.html',
-})
-export class CoursePupilsPage
+             selector: 'page-course-pupils',
+             templateUrl: 'course-pupils.html',
+           })
+@PageNameInjector("CoursePupilsPage")
+export class CoursePupilsPage  extends EditableListView<Course>
 {
-  course:Course;
-  genders=Gender;
-  genderKeys:any;
-  constructor(public navCtrl: NavController, public navParams: NavParams)
+  courseId:string;
+  constructor(public navCtrl: NavController, public navParams: NavParams,provider:CourseProvider)
   {
-    this.course = navParams.get(CourseViewPage.COURSE_PARAMS_KEY);
-    //noinspection TypeScriptValidateTypes
-    this.genderKeys = Object.keys(this.genders).filter(Number);
-
+    super(navCtrl,provider,"CoursePupilsViewPage");
+    this.courseId = navParams.get(CourseViewPage.COURSE_PARAMS_KEY);
   }
 
-  selectItem(pupil:Pupil)
+  ionViewWillEnter()
   {
-    this.navCtrl.push("CoursePupilsViewPage",{model:pupil,mode:ViewMode.view});
-  }
-
-  addNewCoursePupil()
-  {
-    this.navCtrl.push("CoursePupilsViewPage",{model:this.initEmptyModel(),mode:ViewMode.create});
+    let subscription = (<CourseProvider>this.provider).getAllPupils(this.courseId).subscribe(value=>
+                                                                                             {
+                                                                                               this.items=value;
+                                                                                               subscription.unsubscribe();
+                                                                                             },
+                                                                                             err=>
+                                                                                             {
+                                                                                               console.log(err);
+                                                                                             })
   }
 
   initEmptyModel():any
@@ -46,11 +45,12 @@ export class CoursePupilsPage
     let model =
     {
       pupil:{},
-      PupilExams:[]
+      suraExams:[],
+      partExams:[]
     };
     return model;
-
-
   }
+
+
 
 }

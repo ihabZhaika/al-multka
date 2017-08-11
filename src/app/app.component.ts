@@ -14,6 +14,7 @@ export class MyApp {
   rootPage:string = "TabsPage";
   pages: Array<{title: string, component: any}>;
   @ViewChild(Nav) nav: Nav;
+  isLoggedIn:boolean;
   constructor(platform: Platform, statusBar: StatusBar, splashScreen: SplashScreen,private menuCtrl: MenuController, private auth:AuthProvider,private mockDataProvider:MockDataProvider)
   {
     // used for an example of ngFor and navigation
@@ -44,6 +45,17 @@ export class MyApp {
         value=>
         {
           console.log(value);
+          this.auth.authStatus.subscribe(value=>
+                                                           {
+                                                             this.isLoggedIn = value;
+                                                             console.log("From app:",value);
+                                                           },
+          error=>
+          {
+            console.error("From app:",error);
+
+          });
+          this.auth.checkAuthentication();
         },
         err=>
         {

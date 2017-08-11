@@ -9,5 +9,4 @@ export interface Supervisor extends User
   // the login is on the primary phone number
   phoneNumbers:string[];
   currentTask:string;
-  courses:Course[];
 }

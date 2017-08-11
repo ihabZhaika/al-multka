@@ -1,7 +1,7 @@
 import {Course} from "../../models/course/course.interface";
 import {PLACES} from "../place/places.mock";
 import {CourseGender} from "../../models/gender/course.gender.enum";
-import {SUERPVISORS} from "../supervisor/supervisors.mock";
+import {SUPERVISORS} from "../supervisor/supervisors.mock";
 import {PUPILS} from "../pupil/pupils.mock";
 import {PARTS} from "../part/parts.mock";
 import {Day} from "../../models/time/day.enum";
@@ -25,12 +25,11 @@ const courses:Course[] =
       teachDays:[{day:Day[Day.الأثنين],from:new Date().toISOString(),to:new Date().toISOString()}],
       ageRange:{from:16,to:18},
       dateRange:{from:new Date("April 31, 2017 11:13:00").toISOString(),to:new Date("July 31, 1995 11:13:00").toISOString()},
-      supervisors:[SUERPVISORS[0]],
-      pupils:[PUPILS[0],PUPILS[1],PUPILS[3]],
-      supervisorsPermissions:[{userId:SUERPVISORS[0]._id,permissions:[{name:"settings",create:false,erase:false,read:true,update:true}]}],
+      supervisors:[SUPERVISORS[0]],
+      pupils:[{pupil:PUPILS[0],partExams:[],suraExams:[]},{pupil:PUPILS[1],partExams:[],suraExams:[]},{pupil:PUPILS[3],partExams:[],suraExams:[]}],
+      supervisorsPermissions:[{userId:SUPERVISORS[0]._id,permissions:[{pageName:"settings",create:false,erase:false,read:true,update:true}]}],
       attendances:[{date:new Date('April 31, 2017 11:13:00').toISOString(),pupilsAttendances:[{pupil:PUPILS[0],attended:AttendanceStatus.حضور},{pupil:PUPILS[1],attended:AttendanceStatus.حضور}]},{date:new Date().toISOString(),pupilsAttendances:[{pupil:PUPILS[0],attended:AttendanceStatus.حضور},{pupil:PUPILS[1],attended:AttendanceStatus.غائب},]}],
       parts:[PARTS[0],PARTS[2]],
-      pupilsExams:[{pupilId:PUPILS[0]._id, partExams:[],suraExams:[]}]
     }
   ];
 
