@@ -50,7 +50,7 @@ export abstract class EditableListView<T>
 
   addNewModel()
   {
-    this.navCtrl.push(this.viewPageName,{model:this.initEmptyModel(),mode:ViewMode.create});
+    this.navCtrl.push(this.viewPageName,{model:this.initEmptyModel(),mode:ViewMode.create,[KEYS.PERMISSION_KEY]:this.pagePermissions});
   }
 
   abstract initEmptyModel():T

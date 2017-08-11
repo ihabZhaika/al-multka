@@ -47,10 +47,10 @@ export class MyApp {
       // Okay, so the platform is ready and our plugins are available.
       // Here you can do any higher level native things you might need.
 
-      mockDataProvider.deleteMockData().flatMap(()=>mockDataProvider.insertMockData()).subscribe(
-        value=>
-        {
-          console.log(value);
+      // mockDataProvider.deleteMockData().flatMap(()=>mockDataProvider.insertMockData()).subscribe(
+      //   value=>
+      //   {
+      //     console.log(value);
           this.auth.authStatus.subscribe(value=>
                                          {
                                            this.isLoggedIn = value;
@@ -125,14 +125,14 @@ export class MyApp {
           // trigger the check of the session validation
           this.auth.validateSession();
 
-        },
-        err=>
-        {
-          // window.prompt(JSON.stringify(err));
-          console.log(err);
-
-        }
-      )
+      //   },
+      //   err=>
+      //   {
+      //     // window.prompt(JSON.stringify(err));
+      //     console.log(err);
+      //
+      //   }
+      // )
     });
   }
   openPage(page)

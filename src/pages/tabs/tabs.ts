@@ -1,6 +1,5 @@
-import { Component } from '@angular/core';
-import { IonicPage, NavController, NavParams } from 'ionic-angular';
-import {MockDataProvider} from "../../providers/mock-data/mock-data.provider";
+import {Component} from "@angular/core";
+import {IonicPage} from "ionic-angular";
 
 /**
  * Generated class for the TabsPage page.

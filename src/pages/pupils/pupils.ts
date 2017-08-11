@@ -19,7 +19,7 @@ export class PupilsPage extends EditableListView<Pupil>
   constructor(navCtrl: NavController, public navParams: NavParams,provider:PupilProvider)
   {
     super(navCtrl,provider,"PupilViewPage",navParams.get(KEYS.PERMISSION_KEY));
-
+    console.log(navParams.get(KEYS.PERMISSION_KEY));
   }
 
 

@@ -36,6 +36,7 @@ export abstract class SwitchableInputPage<T>
 
   checkPermission(kind:string)
   {
+    console.log(this.pagePermissions);
     return this.pagePermissions[kind];
   }
 
